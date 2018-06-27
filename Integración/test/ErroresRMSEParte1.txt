@@ -1,0 +1,18 @@
+METODOS DE INTERPOLACION:
+
+Diferencias finitias:
+
+Funcion 1 :e^x+x-2
+
+Error con X = 0.5: -nan
+Error con x = 1: -nan
+Error con x = 5: 2.49117e+85
+Error con x = 10: 2.49117e+85
+
+Funcion 2 :x^3+4*x^2-5*x+2
+
+Error con X = 0.5: -nan
+Error con x = 1: -nan
+Error con x = 5: 2.80084e-09
+Error con x = 10: 2.66553e-09
+
