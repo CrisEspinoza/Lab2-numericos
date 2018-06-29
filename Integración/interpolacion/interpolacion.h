@@ -30,6 +30,9 @@ class Interpolacion
 		vector<double> vectorX(double distancia);
 		vector<double> vectorY(vector<double> vectorInterX, int i);
 		vector<double> diferenciasFinitas(vector<double> vectorX, vector<double> vectorY,vector<double> vectorXInterpolado_0_05);
+		vector<double> diferenciaDivididas(vector<double> vectorX, vector<double> vectorY, vector<double> vectorXInterpolado_0_05);
+		vector<double> splineCubico(vector<double> t, vector<double> y, vector<double> x);
+		vector<double> minimosCuadrados(vector<double> vectorX, vector<double> vectorY, vector<double> vectorXInterpolado_0_05);
 };
 
 #endif

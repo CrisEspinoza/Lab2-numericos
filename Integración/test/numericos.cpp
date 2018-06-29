@@ -68,13 +68,38 @@ int main()
   //Vector para graficar escala logaritmica 
   vector<double> vectorXInterpolado_0_05, vector1_Y_Interpolado_0_05, vector2_Y_Interpolado_0_05;
   
-  //Variables a utilizar Funcion 1:
-  vector<double> difFinitas1_0_5,difFinitas1_1,difFinitas1_5,difFinitas1_10;
-  double errorFinito1_0_5,errorFinito1_1,errorFinito1_5,errorFinito1_10;
+  // Metodo 1:
+	  //Variables a utilizar Funcion 1:
+	  vector<double> difFinitas1_0_5,difFinitas1_1,difFinitas1_5,difFinitas1_10;
+	  double errorFinito1_0_5,errorFinito1_1,errorFinito1_5,errorFinito1_10;
 
-  //Variables a utilizar Funcion 2:
-  vector<double> difFinitas2_0_5,difFinitas2_1,difFinitas2_5,difFinitas2_10;
-  double errorFinito2_0_5,errorFinito2_1,errorFinito2_5,errorFinito2_10;
+	  //Variables a utilizar Funcion 2:
+	  vector<double> difFinitas2_0_5,difFinitas2_1,difFinitas2_5,difFinitas2_10;
+	  double errorFinito2_0_5,errorFinito2_1,errorFinito2_5,errorFinito2_10;
+
+  // Metodo 2:
+	  //Variables a utilizar Funcion 1:
+	  vector<double> difDivididas1_0_5,difDivididas1_1,difDivididas1_5,difDivididas1_10;
+      double errorDivididos1_0_5,errorDivididos1_1,errorDivididos1_5,errorDivididos1_10;
+	  //Variables a utilizar Funcion 2:
+      vector<double> difDivididas2_0_5,difDivididas2_1,difDivididas2_5,difDivididas2_10;
+      double errorDivididos2_0_5,errorDivididos2_1,errorDivididos2_5,errorDivididos2_10;
+
+  // Metodo 3:
+	  //Variables a utilizar Funcion 1:
+	  vector<double> difMinimosCuadrado1_0_5,difMinimosCuadrado1_1,difMinimosCuadrado1_5,difMinimosCuadrado1_10;
+      double errorMinimosCuadrado1_0_5,errorMinimosCuadrado1_1,errorMinimosCuadrado1_5,errorMinimosCuadrado1_10;
+	  //Variables a utilizar Funcion 2:
+	  vector<double> difMinimosCuadrado2_0_5,difMinimosCuadrado2_1,difMinimosCuadrado2_5,difMinimosCuadrado2_10;
+      double errorMinimosCuadrado2_0_5,errorMinimosCuadrado2_1,errorMinimosCuadrado2_5,errorMinimosCuadrado2_10;
+
+  // Metodo 4:
+	  //Variables a utilizar Funcion 1:
+      vector<double> difSplineCubico1_0_5,difSplineCubico1_1,difSplineCubico1_5,difSplineCubico1_10;
+      double errordifSplineCubico1_101_0_5,errordifSplineCubico1_101_1,errordifSplineCubico1_101_5,errordifSplineCubico1_10;
+	  //Variables a utilizar Funcion 2:
+      vector<double> difSplineCubico2_0_5,difSplineCubico2_1,difSplineCubico2_5,difSplineCubico2_10;
+      double errorSplineCubico2_0_5,errorSplineCubico2_1,errorSplineCubico2_5,errorSplineCubico2_10;
 
   // Menu (UX)
   do
@@ -128,7 +153,7 @@ int main()
               // Funciones con x = 0.5
               difFinitas1_0_5 = inter.diferenciasFinitas(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05);
               escribirArchivo((char*)"../Resultados/DIFERENCIASFINITAS_FUNC1_X=0_5.txt",vectorXInterpolado_0_05,difFinitas1_0_5);
-              archivoaux<<" Comienza Metodo 1 : Diferencias divididas - FUNCION 1 : " << func1 <<endl;
+              archivoaux<<" Comienza Metodo 1 : Diferencias finitas - FUNCION 1 : " << func1 <<endl;
               archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
               escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difFinitas1_0_5);
               errorFinito1_0_5 = inter.RMSE(difFinitas1_0_5,vector1_Y_Interpolado_0_05);
@@ -172,7 +197,7 @@ int main()
               // Funciones con x = 0.5
               difFinitas2_0_5 = inter.diferenciasFinitas(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05);
               escribirArchivo((char*)"../Resultados/DIFERENCIASFINITAS_FUNC2_X=0_5.txt",vectorXInterpolado_0_05,difFinitas2_0_5);
-              archivoaux<<" Comienza Metodo 1 : Diferencias divididas - FUNCION 2: " << func2 <<endl;
+              archivoaux<<" Comienza Metodo 1 : Diferencias finitas - FUNCION 2: " << func2 <<endl;
               archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
               escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difFinitas2_0_5);
               errorFinito2_0_5 = inter.RMSE(difFinitas2_0_5,vector2_Y_Interpolado_0_05);
@@ -211,9 +236,255 @@ int main()
 
               //Metodo 2 : DIFERENCIAS DIVIDIDAS
 
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Diferencias Divididas:" << endl;
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Funcion 1 :" << func1 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+			  difDivididas1_0_5 = inter.diferenciaDivididas(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC1_X=0_5.txt",vectorXInterpolado_0_05,difDivididas1_0_5);
+			  archivoaux<<" Comienza Metodo 2 : Diferencias divididas - FUNCION 1: " << func1 <<endl;
+              archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas1_0_5);
+			  errorDivididos1_0_5 = inter.RMSE(difDivididas1_0_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 0.5: "<<errorDivididos1_0_5<<endl;
+
+			  difDivididas1_1 = inter.diferenciaDivididas(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC1_X=1.txt",vectorXInterpolado_0_05,difDivididas1_1);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 1 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas1_1);
+			  errorDivididos1_1 = inter.RMSE(difDivididas1_1,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 1: "<<errorDivididos1_1<<endl;
+
+			  difDivididas1_5 = inter.diferenciaDivididas(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC1_X=5.txt",vectorXInterpolado_0_05,difDivididas1_5);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 5 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas1_5);
+			  errorDivididos1_5 = inter.RMSE(difDivididas1_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 5: "<<errorDivididos1_5<<endl;
+
+			  difDivididas1_10 = inter.diferenciaDivididas(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC1_X=10.txt",vectorXInterpolado_0_05,difDivididas1_10);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 10 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas1_10);
+			  errorDivididos1_10 = inter.RMSE(difDivididas1_10,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 10: "<<errorDivididos1_10<<endl;
+
+			  // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+
+              // Comnezamos el proceso para la funcion 2
+              archivoSalidaParte1 << "Funcion 2 :" << func2 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+
+			  //Funcion 2
+			  difDivididas2_0_5 = inter.diferenciaDivididas(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC2_X=0_5.txt",vectorXInterpolado_0_05,difDivididas2_0_5);
+			  archivoaux<<" Comienza Metodo 2 : Diferencias divididas - FUNCION 2: " << func2 <<endl;
+              archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas2_0_5);
+			  errorDivididos2_0_5 = inter.RMSE(difDivididas2_0_5,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 0.5: "<<errorDivididos2_0_5<<endl;
+
+			  difDivididas2_1 = inter.diferenciaDivididas(vectorX_1,vector2_Y_1,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC2_X=1.txt",vectorXInterpolado_0_05,difDivididas2_1);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 1 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas2_1);
+			  errorDivididos2_1 = inter.RMSE(difDivididas2_1,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 1: "<<errorDivididos2_1<<endl;
+
+			  difDivididas2_5 = inter.diferenciaDivididas(vectorX_5,vector2_Y_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC2_X=5.txt",vectorXInterpolado_0_05,difDivididas2_5);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 5 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas2_5);
+			  errorDivididos2_5 = inter.RMSE(difDivididas2_5,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 5: "<<errorDivididos2_5<<endl;
+
+			  difDivididas2_10 = inter.diferenciaDivididas(vectorX_10,vector2_Y_10,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/DIFERENCIASDIVIDIDAS_FUNC2_X=10.txt",vectorXInterpolado_0_05,difDivididas2_10);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 10 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difDivididas2_10);
+			  errorDivididos2_10 = inter.RMSE(difDivididas2_10,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 10: "<<errorDivididos2_10<<endl;
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+			  
+			  // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl; 
+
               //Metodo 3 : MINIMOS CUADRADROS
 
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Minimos Cuadrado:" << endl;
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Funcion 1 :" << func1 << endl;
+              archivoSalidaParte1 << ""<< endl;	
+
+			  difMinimosCuadrado1_0_5 = inter.minimosCuadrados(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC1_X=0_5.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_0_5);
+			  archivoaux<<" Comienza Metodo 3 : Minimos Cuadrados - FUNCION 1: " << func1 <<endl;
+              archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_0_5);
+			  errorMinimosCuadrado1_0_5 = inter.RMSE(difMinimosCuadrado1_0_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 0.5: "<<errorMinimosCuadrado1_0_5<<endl;
+
+			  difMinimosCuadrado1_1 = inter.minimosCuadrados(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC1_X=1.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_1);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 1 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_1);
+			  errorMinimosCuadrado1_1 = inter.RMSE(difMinimosCuadrado1_1,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 1: "<<errorMinimosCuadrado1_1<<endl;
+
+			  difMinimosCuadrado1_5 = inter.minimosCuadrados(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC1_X=5.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_5);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 5 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_5);
+			  errorMinimosCuadrado1_5 = inter.RMSE(difMinimosCuadrado1_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 5: "<<errorMinimosCuadrado1_5<<endl;
+
+			  difMinimosCuadrado1_10 = inter.minimosCuadrados(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC1_X=10.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_10);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 10 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_10);
+			  errorMinimosCuadrado1_10 = inter.RMSE(difMinimosCuadrado1_10,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 10: "<<errorMinimosCuadrado1_10<<endl;
+
+			  // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+
+              // Comnezamos el proceso para la funcion 2
+              archivoSalidaParte1 << "Funcion 2 :" << func2 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+			  //Funcion 2
+			  difMinimosCuadrado2_0_5 = inter.minimosCuadrados(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC2_X=0_5.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_0_5);
+			  archivoaux<<" Comienza Metodo 3 : Minimos Cuadrados - FUNCION 2: " << func2 <<endl;
+              archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_0_5);
+			  errorMinimosCuadrado2_0_5 = inter.RMSE(difMinimosCuadrado2_0_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 0.5: "<<errorMinimosCuadrado2_0_5<<endl;
+
+			  difMinimosCuadrado2_1 = inter.minimosCuadrados(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC2_X=1.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_1);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 1 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_1);
+			  errorMinimosCuadrado2_1 = inter.RMSE(difMinimosCuadrado2_1,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 1: "<<errorMinimosCuadrado2_1<<endl;
+
+			  difMinimosCuadrado2_5 = inter.minimosCuadrados(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC2_X=5.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_5);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 5 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_5);
+			  errorMinimosCuadrado2_5 = inter.RMSE(difMinimosCuadrado2_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 5: "<<errorMinimosCuadrado2_5<<endl;
+
+			  difMinimosCuadrado2_10 = inter.minimosCuadrados(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/MINIMOSCUADRADOS_FUNC2_X=10.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_10);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 10 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_10);
+			  errorMinimosCuadrado2_10 = inter.RMSE(difMinimosCuadrado2_10,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 10: "<<errorMinimosCuadrado2_10<<endl;
+			  
+			  // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+
               //Metodo 4 : SPLINE CÚBICOS
+
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Spline Cubico:" << endl;
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Funcion 1 :" << func1 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+			  difSplineCubico1_0_5 = inter.minimosCuadrados(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC1_X=0_5.txt",vectorXInterpolado_0_05,difSplineCubico1_0_5);
+			  archivoaux<<" Comienza Metodo 4 : Spline Cubico - FUNCION 1: " << func1 <<endl;
+              archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico1_0_5);
+			  errordifSplineCubico1_101_0_5 = inter.RMSE(difSplineCubico1_0_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 0.5: "<<errordifSplineCubico1_101_0_5<<endl;
+
+			  difSplineCubico1_1 = inter.minimosCuadrados(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC1_X=1.txt",vectorXInterpolado_0_05,difSplineCubico1_1);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 1 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico1_1);
+			  errordifSplineCubico1_101_1 = inter.RMSE(difSplineCubico1_1,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 1: "<<errordifSplineCubico1_101_1<<endl;
+
+			  difSplineCubico1_5 = inter.minimosCuadrados(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC1_X=5.txt",vectorXInterpolado_0_05,difSplineCubico1_5);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 5 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico1_5);
+			  errordifSplineCubico1_101_5 = inter.RMSE(difSplineCubico1_5,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 5: "<<errordifSplineCubico1_101_5<<endl;
+
+			  difSplineCubico1_10 = inter.minimosCuadrados(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC1_X=10.txt",vectorXInterpolado_0_05,difSplineCubico1_10);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 10 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico1_10);
+			  errordifSplineCubico1_10 = inter.RMSE(difSplineCubico1_10,vector1_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 10: "<<errordifSplineCubico1_10<<endl;
+
+			  // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+
+              // Comnezamos el proceso para la funcion 2
+              archivoSalidaParte1 << "Funcion 2 :" << func2 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+			  //Funcion 2
+			  difSplineCubico2_0_5 = inter.minimosCuadrados(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC2_X=0_5.txt",vectorXInterpolado_0_05,difSplineCubico2_0_5);
+			  archivoaux<<" Comienza Metodo 4 : Spline Cubico - FUNCION 2: " << func2 <<endl;
+              archivoaux<<" -------------------- Con X = 0.5 ----------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico2_0_5);
+			  errorSplineCubico2_0_5 = inter.RMSE(difSplineCubico2_0_5,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 0.5: "<<errorSplineCubico2_0_5<<endl;
+
+			  difSplineCubico2_1 = inter.minimosCuadrados(vectorX_1,vector2_Y_1,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC2_X=1.txt",vectorXInterpolado_0_05,difSplineCubico2_1);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 1 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico2_1);
+			  errorSplineCubico2_1 = inter.RMSE(difSplineCubico2_1,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 1: "<<errorSplineCubico2_1<<endl;
+
+			  difSplineCubico2_5 = inter.minimosCuadrados(vectorX_5,vector2_Y_5,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC2_X=5.txt",vectorXInterpolado_0_05,difSplineCubico2_5);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 5 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico2_5);
+			  errorSplineCubico2_5 = inter.RMSE(difSplineCubico2_5,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 5: "<<errorSplineCubico2_5<<endl;
+
+			  difSplineCubico2_10 = inter.minimosCuadrados(vectorX_10,vector2_Y_10,vectorXInterpolado_0_05);
+			  escribirArchivo((char*)"../Resultados/SPLINECUBICO_FUNC2_X=10.txt",vectorXInterpolado_0_05,difSplineCubico2_10);
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+              archivoaux<<" ---------------- Con X = 10 --------------------------------"<<endl;
+              escribirArchivoDatos(archivoaux,(char*)"Datos.txt",vectorXInterpolado_0_05,difSplineCubico2_10);
+			  errorSplineCubico2_10 = inter.RMSE(difSplineCubico2_10,vector2_Y_Interpolado_0_05);
+			  archivoSalidaParte1<<"Error con x = 10: "<<errorSplineCubico2_10<<endl;
+			  archivoaux<<" -----------------****************** Termino ******************------------------ "<<endl;
+			  
+			  // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
 
               break;
 
