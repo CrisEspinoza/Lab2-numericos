@@ -18,7 +18,7 @@
 using namespace std;
 using namespace arma; 
 
-void escribirArchivo(char* archivo,vector<double> vectorX, vector<double> vectorY)
+void escribirArchivo(char* archivo,vector<long double> vectorX, vector<long double> vectorY)
 {
   ofstream archivoSalida;
   archivoSalida.open(archivo,ios::out);
@@ -31,7 +31,7 @@ void escribirArchivo(char* archivo,vector<double> vectorX, vector<double> vector
   archivoSalida.close();
 }
 
-void escribirArchivoDatos(ofstream &archivoDatos , char* archivo,vector<double> vectorX, vector<double> vectorY)
+void escribirArchivoDatos(ofstream &archivoDatos , char* archivo,vector<long double> vectorX, vector<long double> vectorY)
 {
 
   for(int i = 0; i<vectorX.size(); i++)
@@ -46,7 +46,7 @@ int main()
   int opcion;
   int bandera = 0;
   Interpolacion inter;
-  calcIntegral calcIntegral;
+  //calcIntegral calcIntegral;
   char func1[256] = "e^x+x-2";
   char func2[256] = "x^3+4*x^2-5*x+2";
 
@@ -59,62 +59,62 @@ int main()
   ofstream archivoaux("Datos.txt");
 
   //Vector x interpolado en 0.5, 1, 5, 10
-  vector<double> vectorX_0_5, vectorX_1, vectorX_5, vectorX_10; 
+  vector<long double> vectorX_0_5, vectorX_1, vectorX_5, vectorX_10; 
 
   //Vector f(x) donde x son los x interpolados antes. (Función 1)
-  vector<double> vector1_Y_0_5, vector1_Y_1, vector1_Y_5, vector1_Y_10;
+  vector<long double> vector1_Y_0_5, vector1_Y_1, vector1_Y_5, vector1_Y_10;
   
   //Vector f(x) donde x son los x interpolados antes. (Función 2)
-  vector<double> vector2_Y_0_5, vector2_Y_1, vector2_Y_5, vector2_Y_10;
+  vector<long double> vector2_Y_0_5, vector2_Y_1, vector2_Y_5, vector2_Y_10;
 
   //Vector para graficar escala logaritmica 
-  vector<double> vectorXInterpolado_0_05, vector1_Y_Interpolado_0_05, vector2_Y_Interpolado_0_05;
+  vector<long double> vectorXInterpolado_0_05, vector1_Y_Interpolado_0_05, vector2_Y_Interpolado_0_05;
   
   // Metodo 1:
 	  //Variables a utilizar Funcion 1:
-	  vector<double> difFinitas1_0_5,difFinitas1_1,difFinitas1_5,difFinitas1_10;
-	  double errorFinito1_0_5,errorFinito1_1,errorFinito1_5,errorFinito1_10;
+	  vector<long double> difFinitas1_0_5,difFinitas1_1,difFinitas1_5,difFinitas1_10;
+	  long double errorFinito1_0_5,errorFinito1_1,errorFinito1_5,errorFinito1_10;
 
 	  //Variables a utilizar Funcion 2:
-	  vector<double> difFinitas2_0_5,difFinitas2_1,difFinitas2_5,difFinitas2_10;
-	  double errorFinito2_0_5,errorFinito2_1,errorFinito2_5,errorFinito2_10;
+	  vector<long double> difFinitas2_0_5,difFinitas2_1,difFinitas2_5,difFinitas2_10;
+	  long double errorFinito2_0_5,errorFinito2_1,errorFinito2_5,errorFinito2_10;
 
   // Metodo 2:
 	  //Variables a utilizar Funcion 1:
-	  vector<double> difDivididas1_0_5,difDivididas1_1,difDivididas1_5,difDivididas1_10;
-      double errorDivididos1_0_5,errorDivididos1_1,errorDivididos1_5,errorDivididos1_10;
+	  vector<long double> difDivididas1_0_5,difDivididas1_1,difDivididas1_5,difDivididas1_10;
+      long double errorDivididos1_0_5,errorDivididos1_1,errorDivididos1_5,errorDivididos1_10;
 	  //Variables a utilizar Funcion 2:
-      vector<double> difDivididas2_0_5,difDivididas2_1,difDivididas2_5,difDivididas2_10;
-      double errorDivididos2_0_5,errorDivididos2_1,errorDivididos2_5,errorDivididos2_10;
+      vector<long double> difDivididas2_0_5,difDivididas2_1,difDivididas2_5,difDivididas2_10;
+      long double errorDivididos2_0_5,errorDivididos2_1,errorDivididos2_5,errorDivididos2_10;
 
   // Metodo 3:
 	  //Variables a utilizar Funcion 1:
-	  vector<double> difMinimosCuadrado1_0_5,difMinimosCuadrado1_1,difMinimosCuadrado1_5,difMinimosCuadrado1_10;
-      double errorMinimosCuadrado1_0_5,errorMinimosCuadrado1_1,errorMinimosCuadrado1_5,errorMinimosCuadrado1_10;
+	  vector<long double> difMinimosCuadrado1_0_5,difMinimosCuadrado1_1,difMinimosCuadrado1_5,difMinimosCuadrado1_10;
+      long double errorMinimosCuadrado1_0_5,errorMinimosCuadrado1_1,errorMinimosCuadrado1_5,errorMinimosCuadrado1_10;
 	  //Variables a utilizar Funcion 2:
-	  vector<double> difMinimosCuadrado2_0_5,difMinimosCuadrado2_1,difMinimosCuadrado2_5,difMinimosCuadrado2_10;
-      double errorMinimosCuadrado2_0_5,errorMinimosCuadrado2_1,errorMinimosCuadrado2_5,errorMinimosCuadrado2_10;
+	  vector<long double> difMinimosCuadrado2_0_5,difMinimosCuadrado2_1,difMinimosCuadrado2_5,difMinimosCuadrado2_10;
+      long double errorMinimosCuadrado2_0_5,errorMinimosCuadrado2_1,errorMinimosCuadrado2_5,errorMinimosCuadrado2_10;
 
   // Metodo 4:
 	  //Variables a utilizar Funcion 1:
-      vector<double> difSplineCubico1_0_5,difSplineCubico1_1,difSplineCubico1_5,difSplineCubico1_10;
-      double errordifSplineCubico1_101_0_5,errordifSplineCubico1_101_1,errordifSplineCubico1_101_5,errordifSplineCubico1_10;
+      vector<long double> difSplineCubico1_0_5,difSplineCubico1_1,difSplineCubico1_5,difSplineCubico1_10;
+      long double errordifSplineCubico1_101_0_5,errordifSplineCubico1_101_1,errordifSplineCubico1_101_5,errordifSplineCubico1_10;
 	  //Variables a utilizar Funcion 2:
-      vector<double> difSplineCubico2_0_5,difSplineCubico2_1,difSplineCubico2_5,difSplineCubico2_10;
-      double errorSplineCubico2_0_5,errorSplineCubico2_1,errorSplineCubico2_5,errorSplineCubico2_10;
+      vector<long double> difSplineCubico2_0_5,difSplineCubico2_1,difSplineCubico2_5,difSplineCubico2_10;
+      long double errorSplineCubico2_0_5,errorSplineCubico2_1,errorSplineCubico2_5,errorSplineCubico2_10;
 
   // Variables ocupadas para la parte 2 del enunciados:
 
-   double metTrapecioF_1 = 0.0;
-   double metSimpsonF_1 = 0.0;  
-   double metTrapecioF_2 = 0.0;
-   double metSimpsonF_2 = 0.0;
-   double errorMetTrapecioF_1 = 0.0;
-   double errorMetSimpsonF_1 = 0.0;  
-   double errorMetTrapecioF_2 = 0.0;
-   double errorMetSimpsonF_2 = 0.0;
-   double valorIntegralF_1;
-   double valorIntegralF_2;
+   long double metTrapecioF_1 = 0.0;
+   long double metSimpsonF_1 = 0.0;  
+   long double metTrapecioF_2 = 0.0;
+   long double metSimpsonF_2 = 0.0;
+   long double errorMetTrapecioF_1 = 0.0;
+   long double errorMetSimpsonF_1 = 0.0;  
+   long double errorMetTrapecioF_2 = 0.0;
+   long double errorMetSimpsonF_2 = 0.0;
+   long double valorIntegralF_1;
+   long double valorIntegralF_2;
 
    // Menu (UX)
    do
@@ -133,10 +133,10 @@ int main()
        {
        case 1: 
               //Vector x interpolado en 0.5, 1, 5, 10 (Asignando valores)
-              vectorX_0_5 = inter.vectorX(0.5);
-              vectorX_1 = inter.vectorX(1);
-              vectorX_5 = inter.vectorX(5);
-              vectorX_10 = inter.vectorX(10);
+              vectorX_0_5 = inter.vectorX(0.5,-200,200);
+              vectorX_1 = inter.vectorX(1,-200,200);
+              vectorX_5 = inter.vectorX(5,-200,200);
+              vectorX_10 = inter.vectorX(10,-200,200);
               //Vector f(x) donde x son los x interpolados antes. (Función 1) (Asignando valores)
               vector1_Y_0_5 = inter.vectorY(vectorX_0_5,1);
               vector1_Y_1 = inter.vectorY(vectorX_1,1);
@@ -150,7 +150,7 @@ int main()
               vector2_Y_10 = inter.vectorY(vectorX_10,2);
 
               //Vector para graficar escala logaritmica (Asignando valores)
-              vectorXInterpolado_0_05 = inter.vectorX(0.05);
+              vectorXInterpolado_0_05 = inter.vectorX(0.05,-200,200);
               vector1_Y_Interpolado_0_05 = inter.vectorY(vectorXInterpolado_0_05,1);
               vector2_Y_Interpolado_0_05 = inter.vectorY(vectorXInterpolado_0_05,2);
 
@@ -530,7 +530,7 @@ int main()
 
        case 2: //Parte 2
 
-               if(bandera == 0)
+               /*if(bandera == 0)
                {
                 cout << "Primero tiene que realizar la opcion 1, para poder pasar a la segunda parte del laboratorio" ;
                 break;
@@ -626,7 +626,7 @@ int main()
                //Realizando un salto de linea
                archivoSalidaParte2<<endl;               
                archivoSalidaParte2<<"**********************************************"<<endl;
-
+                */
                break;
 
        case 3: cout <<" * Autor: Cristian Espinoza \n "<< endl;

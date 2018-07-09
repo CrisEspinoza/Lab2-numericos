@@ -23,16 +23,16 @@ class Interpolacion
 {
 	public:	
 		Interpolacion();
-		double func1(double x);
-		double func2(double x);	
-		double RMSE(vector<double> vectorYInterpolado, vector<double> vectorYReal);
-		double factorial(int numero, double valor);
-		vector<double> vectorX(double distancia);
-		vector<double> vectorY(vector<double> vectorInterX, int i);
-		vector<double> diferenciasFinitas(vector<double> vectorX, vector<double> vectorY,vector<double> vectorXInterpolado_0_05);
-		vector<double> diferenciaDivididas(vector<double> vectorX, vector<double> vectorY, vector<double> vectorXInterpolado_0_05);
-		vector<double> splineCubico(vector<double> t, vector<double> y, vector<double> x);
-		vector<double> minimosCuadrados(vector<double> vectorX, vector<double> vectorY, vector<double> vectorXInterpolado_0_05);
+		long double func1(long double x);
+		long double func2(long double x);	
+		long double RMSE(vector<long double> vectorYInterpolado, vector<long double> vectorYReal);
+		long double factorial(int numero, long double valor);
+		vector<long double> vectorX(long double distancia,int interMenor, int interMayor);
+		vector<long double> vectorY(vector<long double> vectorInterX, int i);
+		vector<long double> diferenciasFinitas(vector<long double> vectorX, vector<long double> vectorY,vector<long double> vectorXInterpolado_0_05);
+		vector<long double> diferenciaDivididas(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05);
+		vector<long double> splineCubico(vector<long double> t, vector<long double> y, vector<long double> x);
+		vector<long double> minimosCuadrados(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05);
 };
 
 #endif

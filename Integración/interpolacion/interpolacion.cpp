@@ -5,29 +5,30 @@ Interpolacion::Interpolacion(){
 }
 
 // Funciones que evalua la funcion 1 con el valor ingresado
-double Interpolacion::func1 (double x)
+long double Interpolacion::func1 (long double x)
 {
-	double valor = exp(x)+x-2;
+	long double valor = exp(x)+x-2;
 	return valor;
 }
 
 
 // Funciones que evalua la funcion 2 con el valor ingresado
-double Interpolacion::func2 (double x)
+long double Interpolacion::func2 (long double x)
 {
-	double valor = pow(x,3)+4*pow(x,2)-5*x+2;
+	long double valor = pow(x,3)+4*pow(x,2)-5*x+2;
 	return valor;
 }
 
 // Calcula el error
-double Interpolacion::RMSE(vector<double> vectorYInterpolado, vector<double> vectorYReal)
+long double Interpolacion::RMSE(vector<long double> vectorYInterpolado, vector<long double> vectorYReal)
 {
-	double largo = vectorYReal.size();
-	double resultadoParcial = 0;
-	double resultadoFinal;
+	long double largo = vectorYReal.size();
+	long double resultadoParcial = 0;
+	long double resultadoFinal;
 	int i ;
 
-	for(i = 0; i < largo; i++){
+	for(i = 0; i < largo; i++)
+	{
 		resultadoParcial = resultadoParcial + pow(vectorYReal[i]-vectorYInterpolado[i],2.0);
 	}
 
@@ -37,7 +38,7 @@ double Interpolacion::RMSE(vector<double> vectorYInterpolado, vector<double> vec
 }
 
 //Calcula el factorial de un numero ingresado
-double Interpolacion::factorial(int numero, double valor)
+long double Interpolacion::factorial(int numero, long double valor)
 {
 	if(numero == 0)
 	{
@@ -52,15 +53,15 @@ double Interpolacion::factorial(int numero, double valor)
 
 /*Funcion que retorna el vector que se forma para x, con la diferencia
 que se ingresa como parametro*/
-vector<double> Interpolacion::vectorX(double distancia)
+vector<long double> Interpolacion::vectorX(long double distancia,int interMenor, int interMayor)
 {
-	vector<double> vectorResultante;
+	vector<long double> vectorResultante;
 	double i;
 	
-	// Intervalo fijo de [-200,200]
-	for(i = -200; i <= 200; i = i + distancia){
-		if(i == 0)
-			break;
+	// Iteracion de valores de x e y, segun el intervalo ingresado
+	for(i = interMenor; i <= interMayor; i = i + distancia)
+	{
+		//cout<< distancia <<endl;
 		vectorResultante.push_back(i);
 	}
 	
@@ -70,10 +71,10 @@ vector<double> Interpolacion::vectorX(double distancia)
 
 /*Funcion que retorna el vector que se forma para x, con la diferencia
 que se ingresa como parametro*/
-vector<double> Interpolacion::vectorY(vector<double> vectorInterX, int i)
+vector<long double> Interpolacion::vectorY(vector<long double> vectorInterX, int i)
 {
-	vector<double> vectorResultante;
-	double valor;
+	vector<long double> vectorResultante;
+	long double valor;
 	
 	//para funcion1
 	if(i == 1){
@@ -96,14 +97,14 @@ vector<double> Interpolacion::vectorY(vector<double> vectorInterX, int i)
 }
 
 //Método de Interpolación: Diferencias finitas
-vector<double> Interpolacion::diferenciasFinitas(vector<double> vectorX, vector<double> vectorY,vector<double> vectorXInterpolado_0_05)
+vector<long double> Interpolacion::diferenciasFinitas(vector<long double> vectorX, vector<long double> vectorY,vector<long double> vectorXInterpolado_0_05)
 {
 	int i,j;
 	int tamano = vectorX.size();
-	double tablaDif[tamano][tamano]; //tabla de diferencias
-	double tablaVal[tamano][tamano]; //tabla de valores
-	double xt;
-	double yi;
+	long double tablaDif[tamano][tamano]; //tabla de diferencias
+	long double tablaVal[tamano][tamano]; //tabla de valores
+	long double xt;
+	long double yi;
 
 	//inicializa la tabla de diferencias y tabla de valores
 	for (i = 0; i < tamano; ++i){
@@ -128,7 +129,7 @@ vector<double> Interpolacion::diferenciasFinitas(vector<double> vectorX, vector<
 	}
 
 	//interpola con el polinomio
-	vector<double> vectorResultante;
+	vector<long double> vectorResultante;
 	int contador = vectorXInterpolado_0_05.size();
 
 	for(i = 0; i < contador; i++){
@@ -147,12 +148,12 @@ vector<double> Interpolacion::diferenciasFinitas(vector<double> vectorX, vector<
 }
 
 //Método de Interpolacion: Diferencias divididas
-vector<double> Interpolacion::diferenciaDivididas(vector<double> vectorX, vector<double> vectorY, vector<double> vectorXInterpolado_0_05)
+vector<long double> Interpolacion::diferenciaDivididas(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05)
 {
 	int tamano = vectorX.size();
-	double tablaDif[tamano][tamano];
-	double xt;
-	double yi;
+	long double tablaDif[tamano][tamano];
+	long double xt;
+	long double yi;
 	int i,j;
 
 	//inicializa la tabla de diferencias
@@ -171,7 +172,7 @@ vector<double> Interpolacion::diferenciaDivididas(vector<double> vectorX, vector
 	}
 
 	//interpola con el polinomio
-	vector<double> vectorResultante;
+	vector<long double> vectorResultante;
 	int contador = vectorXInterpolado_0_05.size();
 
 	for(i = 0; i < contador; i++)
@@ -193,11 +194,11 @@ vector<double> Interpolacion::diferenciaDivididas(vector<double> vectorX, vector
 }
 
 //Método de Interpolacion de los Minimos Cuadrados
-vector<double> Interpolacion::minimosCuadrados(vector<double> vectorX, vector<double> vectorY, vector<double> vectorXInterpolado_0_05)
+vector<long double> Interpolacion::minimosCuadrados(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05)
 {
     int tamano = vectorX.size();
-    double x1 = 0, x2 = 0, x3 = 0, x4 = 0, x5 = 0, x6 = 0, x7 = 0, x8 = 0;
-    double yx0 = 0, yx1 = 0, yx2 = 0, yx3 = 0, yx4 = 0;
+    long double x1 = 0, x2 = 0, x3 = 0, x4 = 0, x5 = 0, x6 = 0, x7 = 0, x8 = 0;
+    long double yx0 = 0, yx1 = 0, yx2 = 0, yx3 = 0, yx4 = 0;
 
     //Calculamos todos los elementos que contiene la matriz
     for (int i = 0; i < tamano; ++i)
@@ -255,11 +256,11 @@ vector<double> Interpolacion::minimosCuadrados(vector<double> vectorX, vector<do
 
     vec C = solve(A,B);
     int count = vectorXInterpolado_0_05.size();
-    vector<double> FXresultante; 
+    vector<long double> FXresultante; 
 
     for (int i = 0; i < count; ++i)
     {
-        double yResultante = C(0) + C(1)*vectorXInterpolado_0_05[i] + C(2)* pow(vectorXInterpolado_0_05[i],2.0) + C(3) * pow(vectorXInterpolado_0_05[i],3.0);
+        long double yResultante = C(0) + C(1)*vectorXInterpolado_0_05[i] + C(2)* pow(vectorXInterpolado_0_05[i],2.0) + C(3) * pow(vectorXInterpolado_0_05[i],3.0);
         FXresultante.push_back(yResultante);
     }
     
@@ -268,7 +269,7 @@ vector<double> Interpolacion::minimosCuadrados(vector<double> vectorX, vector<do
 }
 
 //Método de Interpolacion: Spline Cubico
-vector<double> Interpolacion::splineCubico(vector<double> t, vector<double> y, vector<double> x)
+vector<long double> Interpolacion::splineCubico(vector<long double> t, vector<long double> y, vector<long double> x)
 {
 	if(t.size() != y.size()){
         printf("los vectores tienen distinto largo ");
@@ -277,8 +278,8 @@ vector<double> Interpolacion::splineCubico(vector<double> t, vector<double> y, v
     int tamano = t.size();
     int i,j;
     
-    vector<double> h;
-	double hi;
+    vector<long double> h;
+	long double hi;
 	
 	//damos valor al vector h(distancia entre los x)
     for(i = 0 ;i < tamano-1; i++)
@@ -324,11 +325,11 @@ vector<double> Interpolacion::splineCubico(vector<double> t, vector<double> y, v
 	//resolver sistema ecuaciones con la funcion de armadillo "solve":
 	vec X1 = solve(A, B);
 
-    vector<double> solucion;
+    vector<long double> solucion;
     
     //interpolando
     i = 0;
-    double a,b,c,d,e,Rj;
+    long double a,b,c,d,e,Rj;
 	
     while(i < x.size())
     {
