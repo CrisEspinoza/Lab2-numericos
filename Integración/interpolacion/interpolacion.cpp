@@ -96,42 +96,79 @@ vector<long double> Interpolacion::vectorY(vector<long double> vectorInterX, int
 	return vectorResultante;
 }
 
-//Método de Interpolación: Diferencias finitas
-vector<long double> Interpolacion::diferenciasFinitas(vector<long double> vectorX, vector<long double> vectorY,vector<long double> vectorXInterpolado_0_05)
+long double** Interpolacion::crearMatrizMet1y2(vector<long double> vectorX, vector<long double> vectorY)
 {
-	int i,j;
 	int tamano = vectorX.size();
-	long double tablaDif[tamano][tamano]; //tabla de diferencias
-	long double tablaVal[tamano][tamano]; //tabla de valores
-	long double xt;
-	long double yi;
+	cout << "El numero del arreglo es de: " << tamano << endl;
 
+	int i,j,descuento=0;
+	long double **matriz;
+	matriz = (long double**)calloc((tamano+1),sizeof(long double*));
+   	for (i = 0 ; i <= tamano; ++i)
+     	matriz[i] = (long double*)calloc(tamano,sizeof(long double));
+	
 	//inicializa la tabla de diferencias y tabla de valores
-	for (i = 0; i < tamano; ++i){
-		tablaVal[i][0] = vectorY[i];
-		tablaDif[i][0] = vectorY[i];
+	for (i = 0; i < tamano; i++)
+	{
+		matriz[0][i] = vectorX[i];
+		matriz[1][i] = vectorY[i];
 	}
 
-	//calcula la tabla de diferencias
-	for(j = 1; j < tamano; j++){
-		for(i = 0; i < tamano - j ; i++){
-			tablaDif[i][j] = tablaDif[i+1][j-1] - tablaDif[i][j-1];
+	// Me falta rellenar los demas :o ... 
+	for (j = 2; j <= tamano; j++)
+	{
+		for (i = 0 ; i < tamano-descuento; i++)
+		{
+			cout<<matriz[j-1][i+1]<<endl;
+			cout<< matriz[j-1][i]<<endl;
+			cout<<matriz[0][i+1]<<endl;
+			cout<<matriz[0][i]<<endl;
+
+			matriz[j][i] = ( (matriz[j-1][i+1] - matriz[j-1][i]) / (matriz[0][i+1] - matriz[0][i]) );
+
+			cout<<"El resultado es : "<<matriz[j][i]<<endl;
 		}
+		descuento++;
 	}
 
-	//calcula la tabla de valores 
-	int h = vectorX[1]-vectorX[0];
-
-	for(j = 1; j < tamano; j++){
-		for(i = 0; i < tamano-j ; i++){
-			tablaVal[i][j] = (tablaDif[i][j])/((pow(h,j))*factorial(j,1));
+	
+	for (i = 2; i <= tamano ; i++)
+	{
+		for (j = 0; j < tamano; j++)
+		{
+			cout << "Matriz" <<"[" << i <<"]"<<"["<< j << "] : " << matriz[i][j] << endl;
 		}
+		cout<<endl;
+		cout<<endl;
 	}
 
-	//interpola con el polinomio
+	return matriz;
+}
+
+//Método de Interpolación: Diferencias finitas
+void Interpolacion::diferenciasFinitas(vector<long double> vectorX, vector<long double> vectorY,vector<long double> vectorXInterpolado_0_05)
+{
+	long double **matriz;
+	matriz = crearMatrizMet1y2(vectorX,vectorY);
+	int tamano = vectorX.size();
+	int i,j;
+
+	/*
+	// Comprobando la matriz que resulto
+	for (i = 2; i <= tamano ; i++)
+	{
+		for (j = 0; j < tamano; j++)
+		{
+			cout << "Matriz" <<"[" << i <<"]"<<"["<< j << "] : " << matriz[i][j] << endl;
+		}
+		cout<<endl;
+		cout<<endl;
+	}*/
+
+	/*//interpola con el polinomio
 	vector<long double> vectorResultante;
 	int contador = vectorXInterpolado_0_05.size();
-
+ 
 	for(i = 0; i < contador; i++){
 		xt = 1;
 		yi = tablaVal[0][0];
@@ -142,9 +179,8 @@ vector<long double> Interpolacion::diferenciasFinitas(vector<long double> vector
 		}
 
 		vectorResultante.push_back(yi);
-	}
+	}*/
 	
-	return vectorResultante;
 }
 
 //Método de Interpolacion: Diferencias divididas
@@ -187,6 +223,8 @@ vector<long double> Interpolacion::diferenciaDivididas(vector<long double> vecto
 
 		}
 
+
+
 		vectorResultante.push_back(yi);
 	}
 	
@@ -194,78 +232,88 @@ vector<long double> Interpolacion::diferenciaDivididas(vector<long double> vecto
 }
 
 //Método de Interpolacion de los Minimos Cuadrados
-vector<long double> Interpolacion::minimosCuadrados(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05)
+void Interpolacion::minimosCuadrados(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05, int grado)
 {
-    int tamano = vectorX.size();
-    long double x1 = 0, x2 = 0, x3 = 0, x4 = 0, x5 = 0, x6 = 0, x7 = 0, x8 = 0;
-    long double yx0 = 0, yx1 = 0, yx2 = 0, yx3 = 0, yx4 = 0;
-
-    //Calculamos todos los elementos que contiene la matriz
-    for (int i = 0; i < tamano; ++i)
+	long double **matriz,*matriz2,*matriz3;
+	int i,j,tamano=vectorX.size();
+	int maxGrado = 2*grado;
+	long double matrizSum[maxGrado];
+	//cout<<"EL tamano es: "<<tamano<<endl;
+	
+	
+	matriz = (long double**)calloc((grado+1),sizeof(long double*));
+   	for (i = 0 ; i <= grado; ++i)
+     	matriz[i] = (long double*)calloc(grado+1,sizeof(long double));
+    matriz2 = (long double*)calloc((maxGrado),sizeof(long double));
+    matriz3 = (long double*)calloc((maxGrado),sizeof(long double));
+    	 	
+    //Creando las sumatorias
+    
+    for (i = 0; i < maxGrado; i++)
     {
-        x1 = x1 + pow(vectorX[i],1.0);
-        x2 = x2 + pow(vectorX[i],2.0);
-        x3 = x3 + pow(vectorX[i],3.0);
-        x4 = x4 + pow(vectorX[i],4.0);
-        x5 = x5 + pow(vectorX[i],5.0);
-        x6 = x6 + pow(vectorX[i],6.0);
-        x7 = x7 + pow(vectorX[i],7.0);
-        x8 = x8 + pow(vectorX[i],8.0);
-
-
-        yx0 = yx0 + vectorY[i] * pow(vectorX[i],0.0);
-        yx1 = yx1 + vectorY[i] * pow(vectorX[i],1.0);
-        yx2 = yx2 + vectorY[i] * pow(vectorX[i],2.0);
-        yx3 = yx3 + vectorY[i] * pow(vectorX[i],3.0);
-        yx4 = yx4 + vectorY[i] * pow(vectorX[i],4.0);
+    	matrizSum[i] = 0;
     }
 
-    mat A = mat(4,4);
-
-    //relleno fila 1
-    A(0,0) = tamano;
-    A(0,1) = x1;
-    A(0,2) = x2;
-    A(0,3) = x3;
-    
-    //relleno fila 2
-    A(1,0) = x1;
-    A(1,1) = x2;
-    A(1,2) = x3;
-    A(1,3) = x4;  
-    
-    //relleno fila 3
-    A(2,0) = x2;
-    A(2,1) = x3;
-    A(2,2) = x4;
-    A(2,3) = x5;
-    
-    //relleno fila 4
-    A(3,0) = x3;
-    A(3,1) = x4;
-    A(3,2) = x5;
-    A(3,3) = x6;
-
-    mat b = mat(1,4);
-    b(0,0) = yx0;
-    b(0,1) = yx1;
-    b(0,2) = yx2;
-    b(0,3) = yx3;
-
-    mat B = b.t();
-
-    vec C = solve(A,B);
-    int count = vectorXInterpolado_0_05.size();
-    vector<long double> FXresultante; 
-
-    for (int i = 0; i < count; ++i)
+    for (i = 0; i < maxGrado; i++)
     {
-        long double yResultante = C(0) + C(1)*vectorXInterpolado_0_05[i] + C(2)* pow(vectorXInterpolado_0_05[i],2.0) + C(3) * pow(vectorXInterpolado_0_05[i],3.0);
-        FXresultante.push_back(yResultante);
-    }
-    
-    return FXresultante;
+		for (j = 0; j < tamano; j++)
+		{	
+			//cout<<"El numeor a sumar es :"<<pow(vectorX[j],(long double)(i+1))<<endl;
+			matrizSum[i] = matrizSum[i] + (long double)pow(vectorX[j],(long double)(i+1));
+			//cout<<"El numero acumulado es: "<< matrizSum[i]<<endl;
+		}   
+		//cout<<"Termino la primera vuelta ----------------"<<endl; 	
+   	}
+   	
+   	
+   	/*//Revisando sumatorias
+   	for (i = 0; i < maxGrado; i++)
+   	{
+   		cout << "Resultado_" <<i<<":"<<matrizSum[i]<<endl;
+   	}*/
 
+   	//Rellenando matriz
+   	for (i = 0; i <= grado; i++)
+   	{
+   		for (j = 0; j <= grado; j++)
+   		{
+   			if (i == 0 && j == 0)
+   				matriz[i][j] = tamano;		
+   			else
+   				matriz[i][j] = matrizSum[i+j-1];
+   		}	
+   	}
+
+   	/*//Revisando matriz
+   	for (i = 0; i <= grado; i++)
+   	{
+   		for (j = 0; j <= grado; j++)
+   		{
+   			cout<<matriz[i][j]<<" - ";
+   		}
+   		cout<<endl;	
+   	}*/
+
+   	// Realizando matriz de Y
+
+    for (i = 0; i < maxGrado; i++)
+    {
+		for (j = 0; j < tamano; j++)
+		{	
+			//cout<<"El numeor a sumar es :"<<pow(vectorX[j],(long double)(i+1))<<endl;
+			matriz2[i] = matriz2[i] + vectorY[j] * (long double)pow(vectorX[j],(long double) (i));
+			//cout<<"El numero acumulado es: "<< matrizSum[i]<<endl;
+		}   
+		//cout<<"Termino la primera vuelta ----------------"<<endl; 	
+   	}
+
+   	/*//Mostrando vector Y
+   	for (j = 0; j < maxGrado; j++)
+   	{
+   		cout<<matriz2[j]<<endl;
+   	}*/
+
+   matriz3 = lu(&matriz,matriz2);	
 }
 
 //Método de Interpolacion: Spline Cubico

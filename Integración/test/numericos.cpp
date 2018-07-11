@@ -132,6 +132,7 @@ int main()
     switch ( opcion )
        {
        case 1: 
+              
               //Vector x interpolado en 0.5, 1, 5, 10 (Asignando valores)
               vectorX_0_5 = inter.vectorX(0.5,-200,200);
               vectorX_1 = inter.vectorX(1,-200,200);

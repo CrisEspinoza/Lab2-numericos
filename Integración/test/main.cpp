@@ -57,7 +57,7 @@ int main()
   ofstream archivoSalidaParte1,archivoSalidaParte2,resultF1_0_05,resultF1_1,resultF1_5,resultF1_10, 
             resultF2_0_05,resultF2_1,resultF2_5,resultF2_10;
   archivoSalidaParte1.open("ErroresRMSEParte1.txt");
-  ofstream archivoaux("Datos.txt");
+  ofstream archivoaux("Datos.ods");
   // Resultado de funciones reales
     //Funcion 1
   resultF1_0_05.open ("../ResultadosReales/real_0_05_F1.txt");
@@ -69,6 +69,9 @@ int main()
   resultF2_1.open("../ResultadosReales/real_1_F2.txt");
   resultF2_5.open("../ResultadosReales/real_5_F2.txt");
   resultF2_10.open("../ResultadosReales/real_10_F2.txt");
+
+  //Vector pruebas
+  vector<long double> vectorX_50,vector1_Y_50;
 
   //Vector x interpolado en 0.5, 1, 5, 10
   vector<long double> vectorX_0_5, vectorX_1, vectorX_5, vectorX_10; 
@@ -116,7 +119,13 @@ int main()
 
     switch ( opcion )
        {
-       case 1://Vector x interpolado en 0.5, 1, 5, 10 (Asignando valores)
+       case 1:
+              if(bandera == 1 )
+              {
+                cout<<"Ya realiza la parte 1 del laboratorio prosiva con la parte numero dos "<<endl;
+                break;
+              }
+              //Vector x interpolado en 0.5, 1, 5, 10 (Asignando valores)
               vectorX_0_5 = inter.vectorX(0.5,intervaloMenor,intervaloMayor);
               vectorX_1 = inter.vectorX(1,intervaloMenor,intervaloMayor);
               vectorX_5 = inter.vectorX(5,intervaloMenor,intervaloMayor);
@@ -137,6 +146,11 @@ int main()
               vectorXInterpolado_0_05 = inter.vectorX(0.05,intervaloMenor,intervaloMayor);
               vector1_Y_Interpolado_0_05 = inter.vectorY(vectorXInterpolado_0_05,1);
               vector2_Y_Interpolado_0_05 = inter.vectorY(vectorXInterpolado_0_05,2);
+
+              //Prueba
+
+              vectorX_50 = inter.vectorX(50,intervaloMenor,intervaloMayor);
+              vector1_Y_50 = inter.vectorY(vectorX_50,1);
 
               /* Probando separacion de verctores ...
               //escribirArchivoDatos(archivoaux,vectorXInterpolado_0_05);
@@ -159,7 +173,9 @@ int main()
               escribirArchivo( (char*)"../ResultadosReales/real_5_F2.txt",vectorX_5,vector2_Y_5);
               escribirArchivo( (char*)"../ResultadosReales/real_10_F2.txt",vectorX_10,vector2_Y_10);
               */
-              
+
+              //inter.diferenciasFinitas(vectorX_50,vector1_Y_50,vector1_Y_Interpolado_0_05);
+              inter.minimosCuadrados(vectorX_50,vector1_Y_50,vector1_Y_Interpolado_0_05,4);
               // Liberando opcion 2
               bandera = 1;
 
