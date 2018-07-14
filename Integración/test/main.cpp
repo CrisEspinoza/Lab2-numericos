@@ -22,8 +22,13 @@ void escribirArchivo(char* archivo,vector<long double> vectorX, vector<long doub
 {
   ofstream archivoSalida;
   archivoSalida.open(archivo,ios::out);
+  int i,tamano = vectorY.size();
 
-  for(int i = 0; i<vectorX.size(); i++)
+  int tamano1 = vectorX.size();
+
+  cout<<"1:"<<tamano<<"- 2:"<< tamano1<<endl; 
+
+  for(i = 0; i < tamano; i++)
   {
     archivoSalida<<vectorX[i]<<" "<<vectorY[i]<<endl;
   }
@@ -58,18 +63,21 @@ int main()
             resultF2_0_05,resultF2_1,resultF2_5,resultF2_10;
   archivoSalidaParte1.open("ErroresRMSEParte1.txt");
   ofstream archivoaux("Datos.ods");
+  
   // Resultado de funciones reales
     //Funcion 1
-  resultF1_0_05.open ("../ResultadosReales/real_0_05_F1.txt");
+  /*resultF1_0_05.open ("../ResultadosReales/real_0_05_F1.txt");
+  resultF1_0_05.open ("../ResultadosReales/real_0_5_F1.txt");
   resultF1_1.open("../ResultadosReales/real_1_F1.txt");
   resultF1_5.open("../ResultadosReales/real_5_F1.txt");
   resultF1_10.open("../ResultadosReales/real_10_F1.txt");
     //Funcion 2
   resultF2_0_05.open("../ResultadosReales/real_0_05_F2.txt");
+  resultF2_0_05.open("../ResultadosReales/real_0_5_F2.txt");
   resultF2_1.open("../ResultadosReales/real_1_F2.txt");
   resultF2_5.open("../ResultadosReales/real_5_F2.txt");
   resultF2_10.open("../ResultadosReales/real_10_F2.txt");
-
+*/
   //Vector pruebas
   vector<long double> vectorX_50,vector1_Y_50;
 
@@ -87,20 +95,35 @@ int main()
 
   // Metodo 1:
     //Variables a utilizar Funcion 1:
-
+    vector<long double> difDivididas1_0_5,difDivididas1_1,difDivididas1_5,difDivididas1_10;
+      long double errorDivididos1_0_5,errorDivididos1_1,errorDivididos1_5,errorDivididos1_10;
     //Variables a utilizar Funcion 2:
+    vector<long double> difDivididas2_0_5,difDivididas2_1,difDivididas2_5,difDivididas2_10;
+      long double errorDivididos2_0_5,errorDivididos2_1,errorDivididos2_5,errorDivididos2_10;
 
   // Metodo 2:
     //Variables a utilizar Funcion 1:
+    vector<long double> difFinitas1_0_5,difFinitas1_1,difFinitas1_5,difFinitas1_10;
+    long double errorFinito1_0_5,errorFinito1_1,errorFinito1_5,errorFinito1_10;
     //Variables a utilizar Funcion 2:
+    vector<long double> difFinitas2_0_5,difFinitas2_1,difFinitas2_5,difFinitas2_10;
+    long double errorFinito2_0_5,errorFinito2_1,errorFinito2_5,errorFinito2_10;
 
   // Metodo 3:
     //Variables a utilizar Funcion 1:
+    vector<long double> difMinimosCuadrado1_0_5,difMinimosCuadrado1_1,difMinimosCuadrado1_5,difMinimosCuadrado1_10;
+      long double errorMinimosCuadrado1_0_5,errorMinimosCuadrado1_1,errorMinimosCuadrado1_5,errorMinimosCuadrado1_10;
   //Variables a utilizar Funcion 2:
+    vector<long double> difMinimosCuadrado2_0_5,difMinimosCuadrado2_1,difMinimosCuadrado2_5,difMinimosCuadrado2_10;
+      long double errorMinimosCuadrado2_0_5,errorMinimosCuadrado2_1,errorMinimosCuadrado2_5,errorMinimosCuadrado2_10;
 
   // Metodo 4:
     //Variables a utilizar Funcion 1:
+      vector<long double> difSplineCubico1_0_5,difSplineCubico1_1,difSplineCubico1_5,difSplineCubico1_10;
+      long double errordifSplineCubico1_0_5,errordifSplineCubico1_1,errordifSplineCubico1_5,errordifSplineCubico1_10;
     //Variables a utilizar Funcion 2:
+      vector<long double> difSplineCubico2_0_5,difSplineCubico2_1,difSplineCubico2_5,difSplineCubico2_10;
+      long double errorSplineCubico2_0_5,errorSplineCubico2_1,errorSplineCubico2_5,errorSplineCubico2_10;
 
   // Variables ocupadas para la parte 2 del enunciados:
 
@@ -157,25 +180,310 @@ int main()
               //escribirArchivoDatos(archivoaux,vectorX_0_5);
               //escribirArchivoDatos(archivoaux,vectorX_1);
               //escribirArchivoDatos(archivoaux,vectorX_5);
-              //escribirArchivoDatos(archivoaux,vectorX_10);
               */
+              //escribirArchivoDatos(archivoaux,vectorXInterpolado_0_05);
+              
 
-              /*
+              
               // Valores reales de las funciones 
                 // Funcion 1
-              escribirArchivo( (char*)"../ResultadosReales/real_0_05_F1.txt",vectorX_0_5,vector1_Y_0_5);
-              escribirArchivo( (char*)"../ResultadosReales/real_1_F1.txt",vectorX_1,vector1_Y_1);
-              escribirArchivo( (char*)"../ResultadosReales/real_5_F1.txt",vectorX_5,vector1_Y_5);
-              escribirArchivo( (char*)"../ResultadosReales/real_10_F1.txt",vectorX_10,vector1_Y_10);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_0_05_F1.txt",vectorXInterpolado_0_05,vector1_Y_Interpolado_0_05);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_0_5_F1.txt",vectorX_0_5,vector1_Y_0_5);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_1_F1.txt",vectorX_1,vector1_Y_1);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_5_F1.txt",vectorX_5,vector1_Y_5);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_10_F1.txt",vectorX_10,vector1_Y_10);
                 // Funcion 2
-              escribirArchivo( (char*)"../ResultadosReales/real_0_05_F2.txt",vectorX_0_5,vector2_Y_0_5);
-              escribirArchivo( (char*)"../ResultadosReales/real_1_F2.txt",vectorX_1,vector2_Y_1);
-              escribirArchivo( (char*)"../ResultadosReales/real_5_F2.txt",vectorX_5,vector2_Y_5);
-              escribirArchivo( (char*)"../ResultadosReales/real_10_F2.txt",vectorX_10,vector2_Y_10);
-              */
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_0_05_F2.txt",vectorXInterpolado_0_05,vector2_Y_Interpolado_0_05);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_0_5_F2.txt",vectorX_0_5,vector2_Y_0_5);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_1_F2.txt",vectorX_1,vector2_Y_1);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_5_F2.txt",vectorX_5,vector2_Y_5);
+              escribirArchivo( (char*)"../../GraficarMatlab/ResultadosReales/real_10_F2.txt",vectorX_10,vector2_Y_10);
+              
+                // METODOS DE INTERPOLACION 
 
-              //inter.diferenciasFinitas(vectorX_50,vector1_Y_50,vector1_Y_Interpolado_0_05);
-              inter.minimosCuadrados(vectorX_50,vector1_Y_50,vector1_Y_Interpolado_0_05,4);
+              //Metodo 1 : DIFERENCIAS FINITAS
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "METODOS DE INTERPOLACION:" << endl;
+              
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Diferencias divididas:" << endl;
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Funcion 1 :" << func1 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+                //METODO DIFERENCIAS DIVIDIDAS
+              // Funcion 1
+
+              difDivididas1_0_5 = inter.diferenciaDivididas(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05,768);     
+              errorDivididos1_0_5 = inter.RMSE(difDivididas1_0_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con X = 0.5: "<<errorDivididos1_0_5<<endl;
+              
+              difDivididas1_1 = inter.diferenciaDivididas(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05,368);              
+              errorDivididos1_1 = inter.RMSE(difDivididas1_1,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errorDivididos1_1<<endl;
+              
+              difDivididas1_5 = inter.diferenciaDivididas(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05,46);
+              errorDivididos1_5 = inter.RMSE(difDivididas1_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errorDivididos1_5<<endl;
+              
+              difDivididas1_10 = inter.diferenciaDivididas(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05,15);
+              errorDivididos1_10 = inter.RMSE(difDivididas1_10,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errorDivididos1_10<<endl;
+
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func1_0_5.txt",vectorXInterpolado_0_05,difDivididas1_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func1_1.txt",vectorXInterpolado_0_05,difDivididas1_1);
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func1_5.txt",vectorXInterpolado_0_05,difDivididas1_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func1_10.txt",vectorXInterpolado_0_05,difDivididas1_10);
+              
+              // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1<<"**********************************************"<<endl;
+              archivoSalidaParte1<<endl;
+
+              // Comnezamos el proceso para la funcion 2
+              archivoSalidaParte1 << "Funcion 2 :" << func2 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+              //Funcion 2              
+              
+              difDivididas2_0_5 = inter.diferenciaDivididas(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05,800);
+              errorDivididos2_0_5 = inter.RMSE(difDivididas2_0_5,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con X = 0.5: "<<errorDivididos2_0_5<<endl;
+             
+              difDivididas2_1 = inter.diferenciaDivididas(vectorX_1,vector2_Y_1,vectorXInterpolado_0_05,400);
+              errorDivididos2_1 = inter.RMSE(difDivididas2_1,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errorDivididos2_1<<endl;
+              
+              difDivididas2_5 = inter.diferenciaDivididas(vectorX_5,vector2_Y_5,vectorXInterpolado_0_05,80);
+              errorDivididos2_5 = inter.RMSE(difDivididas2_5,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errorDivididos2_5<<endl;
+              
+              difDivididas2_10 = inter.diferenciaDivididas(vectorX_10,vector2_Y_10,vectorXInterpolado_0_05,40);
+              errorDivididos2_10 = inter.RMSE(difDivididas2_10,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errorDivididos2_10<<endl;
+              
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func2_0_5.txt",vectorXInterpolado_0_05,difDivididas2_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func2_1.txt",vectorXInterpolado_0_05,difDivididas2_1);
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func2_5.txt",vectorXInterpolado_0_05,difDivididas2_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifDivididas/Func2_10.txt",vectorXInterpolado_0_05,difDivididas2_10);
+              
+
+              // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1<<"**********************************************"<<endl;
+              archivoSalidaParte1<<endl;
+
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Minimos Cuadrado:" << endl;
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Funcion 1 :" << func1 << endl;
+              archivoSalidaParte1 << ""<< endl; 
+
+                // METODO MINIMOS CUADRADOS
+
+              //Funcion 1
+              
+              difMinimosCuadrado1_0_5 = inter.minimosCuadrados(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05,40);
+              errorMinimosCuadrado1_0_5 = inter.RMSE(difMinimosCuadrado1_0_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 0.5: "<<errorMinimosCuadrado1_0_5<<endl;
+              
+              difMinimosCuadrado1_1 = inter.minimosCuadrados(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05,40);
+              errorMinimosCuadrado1_1 = inter.RMSE(difMinimosCuadrado1_1,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errorMinimosCuadrado1_1<<endl;
+              
+              difMinimosCuadrado1_5 = inter.minimosCuadrados(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05,40);
+              errorMinimosCuadrado1_5 = inter.RMSE(difMinimosCuadrado1_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errorMinimosCuadrado1_5<<endl;
+              
+              difMinimosCuadrado1_10 = inter.minimosCuadrados(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05,40);  
+              errorMinimosCuadrado1_10 = inter.RMSE(difMinimosCuadrado1_10,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errorMinimosCuadrado1_10<<endl;            
+
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func1_0_5.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func1_1.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_1);
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func1_5.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_5);
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func1_10.txt",vectorXInterpolado_0_05,difMinimosCuadrado1_10);
+
+
+              // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1<<"**********************************************"<<endl;
+              archivoSalidaParte1<<endl;
+
+
+              // Comnezamos el proceso para la funcion 2
+              archivoSalidaParte1 << "Funcion 2 :" << func2 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+              //Funcion 2
+
+              difMinimosCuadrado2_0_5 = inter.minimosCuadrados(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05,15);
+              errorMinimosCuadrado2_0_5 = inter.RMSE(difMinimosCuadrado2_0_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 0.5: "<<errorMinimosCuadrado2_0_5<<endl;
+              
+              difMinimosCuadrado2_1 = inter.minimosCuadrados(vectorX_1,vector2_Y_1,vectorXInterpolado_0_05,15);
+              errorMinimosCuadrado2_1 = inter.RMSE(difMinimosCuadrado2_1,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errorMinimosCuadrado2_1<<endl;
+              
+              difMinimosCuadrado2_5 = inter.minimosCuadrados(vectorX_5,vector2_Y_5,vectorXInterpolado_0_05,15);
+              errorMinimosCuadrado2_5 = inter.RMSE(difMinimosCuadrado2_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errorMinimosCuadrado2_5<<endl;
+              
+              difMinimosCuadrado2_10 = inter.minimosCuadrados(vectorX_10,vector2_Y_10,vectorXInterpolado_0_05,15);
+              errorMinimosCuadrado2_10 = inter.RMSE(difMinimosCuadrado2_10,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errorMinimosCuadrado2_10<<endl;
+              
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func2_0_5.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func2_1.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_1);
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func2_5.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_5);
+              escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func2_10.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_10);
+              
+              // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1<<"**********************************************"<<endl;
+              archivoSalidaParte1<<endl;
+
+
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Diferencias finitas:" << endl;
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Funcion 1 :" << func1 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+                // METODO SPLINE CUBICO 
+
+              //Funcion 1
+              
+              difFinitas1_0_5 = inter.diferenciasFinitas(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05,768);
+              errorFinito1_0_5 = inter.RMSE(difFinitas1_0_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con X = 0.5: "<<errorFinito1_0_5<<endl;
+              
+              difFinitas1_1 = inter.diferenciasFinitas(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05,368);
+              errorFinito1_1 = inter.RMSE(difFinitas1_1,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errorFinito1_1<<endl;
+              
+              difFinitas1_5 = inter.diferenciasFinitas(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05,46);
+              errorFinito1_5 = inter.RMSE(difFinitas1_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errorFinito1_5<<endl;
+              
+              difFinitas1_10 = inter.diferenciasFinitas(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05,15); 
+              errorFinito1_10 = inter.RMSE(difFinitas1_10,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errorFinito1_10<<endl;             
+
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func1_0_5.txt",vectorXInterpolado_0_05,difFinitas1_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func1_1.txt",vectorXInterpolado_0_05,difFinitas1_1);
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func1_5.txt",vectorXInterpolado_0_05,difFinitas1_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func1_10.txt",vectorXInterpolado_0_05,difFinitas1_10);
+
+              // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1<<"**********************************************"<<endl;
+              archivoSalidaParte1<<endl;
+
+
+              // Comnezamos el proceso para la funcion 2
+              archivoSalidaParte1 << "Funcion 2 :" << func2 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+              //Funcion 2
+
+              difFinitas2_0_5 = inter.diferenciasFinitas(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05,800);
+              errorFinito2_0_5 = inter.RMSE(difFinitas2_0_5,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con X = 0.5: "<<errorFinito2_0_5<<endl;
+              
+              difFinitas2_1 = inter.diferenciasFinitas(vectorX_1,vector2_Y_1,vectorXInterpolado_0_05,400);
+              errorFinito2_1 = inter.RMSE(difFinitas2_1,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errorFinito2_1<<endl;
+              
+              difFinitas2_5 = inter.diferenciasFinitas(vectorX_5,vector2_Y_5,vectorXInterpolado_0_05,80);
+              errorFinito2_5 = inter.RMSE(difFinitas2_5,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errorFinito2_5<<endl;
+              
+              difFinitas2_10 = inter.diferenciasFinitas(vectorX_10,vector2_Y_10,vectorXInterpolado_0_05,40);
+              errorFinito2_10 = inter.RMSE(difFinitas2_10,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errorFinito2_10<<endl;
+              
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func2_0_5.txt",vectorXInterpolado_0_05,difFinitas2_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func2_1.txt",vectorXInterpolado_0_05,difFinitas2_1);
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func2_5.txt",vectorXInterpolado_0_05,difFinitas2_5);
+              escribirArchivo((char*)"../../GraficarMatlab/DifFinitas/Func2_10.txt",vectorXInterpolado_0_05,difFinitas2_10);
+              
+              // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1<<"**********************************************"<<endl;
+              archivoSalidaParte1<<endl;
+
+              //Metodo 4 : SPLINE CÚBICOS
+
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Spline Cubico:" << endl;
+              archivoSalidaParte1 << ""<< endl;
+              archivoSalidaParte1 << "Funcion 1 :" << func1 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+                // METODO DIFERENCIAS FINITAS
+
+              //Funcion 1
+              
+              difSplineCubico1_0_5 = inter.splineCubico(vectorX_0_5,vector1_Y_0_5,vectorXInterpolado_0_05);
+              errordifSplineCubico1_0_5 = inter.RMSE(difSplineCubico1_0_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 0.5: "<<errordifSplineCubico1_0_5<<endl;
+              
+              difSplineCubico1_1 = inter.splineCubico(vectorX_1,vector1_Y_1,vectorXInterpolado_0_05);
+              errordifSplineCubico1_1 = inter.RMSE(difSplineCubico1_1,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errordifSplineCubico1_1<<endl;
+              
+              difSplineCubico1_5 = inter.splineCubico(vectorX_5,vector1_Y_5,vectorXInterpolado_0_05);
+              errordifSplineCubico1_5 = inter.RMSE(difSplineCubico1_5,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errordifSplineCubico1_5<<endl;
+              
+              difSplineCubico1_10 = inter.splineCubico(vectorX_10,vector1_Y_10,vectorXInterpolado_0_05);
+              errordifSplineCubico1_10 = inter.RMSE(difSplineCubico1_10,vector1_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errordifSplineCubico1_10<<endl;
+
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func1_0_5.txt",vectorXInterpolado_0_05,difSplineCubico1_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func1_1.txt",vectorXInterpolado_0_05,difSplineCubico1_1);
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func1_5.txt",vectorXInterpolado_0_05,difSplineCubico1_5);
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func1_10.txt",vectorXInterpolado_0_05,difSplineCubico1_10);
+
+        
+              // Colocando salto de linea al archivo 
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1<<"**********************************************"<<endl;
+              archivoSalidaParte1<<endl;
+
+
+              // Comnezamos el proceso para la funcion 2
+              archivoSalidaParte1 << "Funcion 2 :" << func2 << endl;
+              archivoSalidaParte1 << ""<< endl;
+
+              //Funcion 2
+
+              difSplineCubico2_0_5 = inter.splineCubico(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05);
+              errorSplineCubico2_0_5 = inter.RMSE(difSplineCubico2_0_5,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 0.5: "<<errorSplineCubico2_0_5<<endl;
+              
+              difSplineCubico2_1 = inter.splineCubico(vectorX_1,vector2_Y_1,vectorXInterpolado_0_05);
+              errorSplineCubico2_1 = inter.RMSE(difSplineCubico2_1,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 1: "<<errorSplineCubico2_1<<endl;
+              
+              difSplineCubico2_5 = inter.splineCubico(vectorX_5,vector2_Y_5,vectorXInterpolado_0_05);
+              errorSplineCubico2_5 = inter.RMSE(difSplineCubico2_5,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 5: "<<errorSplineCubico2_5<<endl;
+              
+              difSplineCubico2_10 = inter.splineCubico(vectorX_10,vector2_Y_10,vectorXInterpolado_0_05);
+              errorSplineCubico2_10 = inter.RMSE(difSplineCubico2_10,vector2_Y_Interpolado_0_05);
+              archivoSalidaParte1<<"Error con x = 10: "<<errorSplineCubico2_10<<endl;
+
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func2_0_5.txt",vectorXInterpolado_0_05,difSplineCubico2_0_5);
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func2_1.txt",vectorXInterpolado_0_05,difSplineCubico2_1);
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func2_5.txt",vectorXInterpolado_0_05,difSplineCubico2_5);
+              escribirArchivo((char*)"../../GraficarMatlab/SplineCubico/Func2_10.txt",vectorXInterpolado_0_05,difSplineCubico2_10);
+
+              // Finalizando el archivo
+              archivoSalidaParte1<<endl;
+              archivoSalidaParte1.close();
+              
               // Liberando opcion 2
               bandera = 1;
 
