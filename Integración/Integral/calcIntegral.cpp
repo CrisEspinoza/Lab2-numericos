@@ -3,17 +3,18 @@
 calcIntegral::calcIntegral(){
 }
 
-double calcIntegral::formTrapecio(vector<double> vectInterpolado, double intervaloMenor, double intervaloMayor)
+long double calcIntegral::formTrapecio(vector<long double> vectInterpolado, long double intervaloMenor, long double intervaloMayor)
 {
 	int largo = vectInterpolado.size();
-	double valorIntegral = 0.0;
-	double inicio = vectInterpolado[0];
-	double final = vectInterpolado[largo-1];
-	double valor = 0.0;
+	int i;
+	long double valorIntegral = 0.0;
+	long double inicio = vectInterpolado[0];
+	long double final = vectInterpolado[largo-1];
+	long double valor = 0.0;
 
-	for(int i = 1; i < (largo-1); i++)
+	for(i = 1; i < (largo-1); i++)
 	{
-		valor = valor + (2.0*vectInterpolado[i]);
+		valor = valor + (vectInterpolado[i]*2.0);
 	}
 
 	valorIntegral = ((intervaloMayor-intervaloMenor) / (2*(largo-1)))*(inicio+valor+final);
@@ -21,14 +22,14 @@ double calcIntegral::formTrapecio(vector<double> vectInterpolado, double interva
 	return valorIntegral;
 }
 
-double calcIntegral::formSimpson(int tamano, vector<double> vectInterpolado, double intervaloMenor, double intervaloMayor)
+long double calcIntegral::formSimpson(int tamano, vector<long double> vectInterpolado, long double intervaloMenor, long double intervaloMayor)
 {
-	double valoresImpares = 0.0;
-	double valoresPares = 0.0;
+	long double valoresImpares = 0.0;
+	long double valoresPares = 0.0;
 	int largo = vectInterpolado.size();
-	double inicial = vectInterpolado[0];
-	double final = vectInterpolado[tamano];
-	double valorIntegral = 0.0;
+	long double inicial = vectInterpolado[0];
+	long double final = vectInterpolado[tamano];
+	long double valorIntegral = 0.0;
 
 	for (int i = 1; i <= (tamano/2) - 1; i++)
 	{	
@@ -44,13 +45,12 @@ double calcIntegral::formSimpson(int tamano, vector<double> vectInterpolado, dou
 	valorIntegral = ((intervaloMayor-intervaloMenor)/(3.0*tamano))*(inicial + valoresImpares + valoresPares + final);
 
 	return valorIntegral;
-
 }
 
-double calcIntegral::errorRelativo(double valorMedido, double valorReal)
+long double calcIntegral::errorRelativo(long double valorMedido, long double valorReal)
 {
-	double error;
-	double absoluto;
+	long double error;
+	long double absoluto;
 	
 	absoluto = valorReal-valorMedido;
 	error = abs(absoluto)/valorReal;

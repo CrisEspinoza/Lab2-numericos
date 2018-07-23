@@ -51,6 +51,7 @@ int main()
   int opcion;
   int bandera = 0;
   Interpolacion inter;
+  calcIntegral calInte;
   int intervaloMenor = -200 , intervaloMayor = 200;
   //calcIntegral calcIntegral;
   char func1[256] = "e^x+x-2";
@@ -62,6 +63,7 @@ int main()
   ofstream archivoSalidaParte1,archivoSalidaParte2,resultF1_0_05,resultF1_1,resultF1_5,resultF1_10, 
             resultF2_0_05,resultF2_1,resultF2_5,resultF2_10;
   archivoSalidaParte1.open("ErroresRMSEParte1.txt");
+  archivoSalidaParte2.open("ErroresRMSEParte2.txt");
   ofstream archivoaux("Datos.ods");
   
   // Resultado de funciones reales
@@ -127,14 +129,24 @@ int main()
 
   // Variables ocupadas para la parte 2 del enunciados:
 
+      // Valores reales de la integral
+      long double integral_F1,integral_F2;
+
+      // Funcion 1 :
+      long double trapecio_F1,simpson_F1,errorTrapecio_F1,errorSimpson_F1;
+
+      // Funcion 2: 
+      long double trapecio_F2,simpson_F2,errorTrapecio_F2,errorSimpson_F2;
+
    // Menu (UX)
    do
    {
     cout <<"\n   1. Comenzar parte 1 del laboratorio" << endl;
     cout <<"\n   2. Comenzar parte 2 del laboratorio" << endl;
-    cout <<"\n   3. Creditos" << endl;
-    cout <<"\n   4. Salir" << endl;
-    cout <<"\n   Introduzca opcion (1-4): "; 
+    cout <<"\n   3. Reiniciar programa" << endl;
+    cout <<"\n   4. Creditos" << endl;
+    cout <<"\n   5. Salir" << endl;
+    cout <<"\n   Introduzca opcion (1-5): "; 
 
     scanf( "%d", &opcion );
 
@@ -146,6 +158,12 @@ int main()
               if(bandera == 1 )
               {
                 cout<<"Ya realiza la parte 1 del laboratorio prosiva con la parte numero dos "<<endl;
+                break;
+              }
+
+              if(bandera == 2 )
+              {
+                cout<<"Ya realizo las dos opciones del programa, debe reiniciarlo (Opcion 3) "<<endl;
                 break;
               }
               //Vector x interpolado en 0.5, 1, 5, 10 (Asignando valores)
@@ -490,23 +508,131 @@ int main()
               break;
 
        case 2: 
-              if(bandera == 0)
+              if(bandera == 0 )
               {
                 cout << "Primero tiene que realizar la opcion 1, para poder pasar a la segunda parte del laboratorio" ;
                 break;
               }
+
+              if(bandera == 2 )
+              {
+                cout << "Ya realizo esta opcion, para volver a realizar debe reiniciar el programa (Opcion 3) " ;
+                break;
+              }
+              // Valores reales de las funciones 1 y 2.
+              integral_F1 = 7.2260*pow(10,86);
+              integral_F2 = 2.1334*pow(10,7);
+
+              /* El metodo con menor error fue el de minimos cuadrados, asi que sera
+              el que ocupemos para el analizes de la parte 2 del laboratorio */
+
+              // Funcion 1
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<" Integración: "<<endl;
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"Valor Real de las funciones: "<<endl;
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"Funcion 1: "<<integral_F1<<endl;
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"Funcion 2: "<<integral_F2<<endl;
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"**********************************************"<<endl;
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"VALOR CALCULADO: ";
+              archivoSalidaParte2<<"Funcion 1: "<< func1 <<endl;
+              archivoSalidaParte2<<endl;
+              
+              //Realizamos los calculos de las integrales
+              trapecio_F1 = calInte.formTrapecio(difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
+              //simpson_F1 = calInte.formSimpson((difMinimosCuadrado1_0_5.size() - 1),difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
+              
+              //Escribimos en el archivo
+              archivoSalidaParte2<<"Calculo Integral Trapecio: "<<trapecio_F1<<endl;
+              //archivoSalidaParte2<<"Calculo Integral Simpson: "<<simpson_F1<<endl;
+              
+              //Realizamos la separacion
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"**********************************************"<<endl;
+              archivoSalidaParte2<<endl;
+
+              // Empezamos a ecribir la funcion 2              
+              archivoSalidaParte2<<"VALOR CALCULADO: ";
+              archivoSalidaParte2<<"Funcion 2: "<< func2 <<endl;
+              archivoSalidaParte2<<endl;
+              
+              //Realizamos los caluclos de la funcion 2
+              trapecio_F2 = calInte.formTrapecio(difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
+              //simpson_F2 = calInte.formulaSimpson( ( difMinimosCuadrado2_0_5.size() - 1 ),difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
+              
+              //Escribimos en el archivo los resultado de la funcion 2
+              archivoSalidaParte2<<"Calculo Integral Trapecio: "<<trapecio_F2<<endl;
+              //archivoSalidaParte2<<"Calculo Integral Simpson: "<<simpson_F2<<endl;
+              
+              //Realizamos los saltos en el archivo
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"**********************************************"<<endl;
+              archivoSalidaParte2<<endl;
+              
+              //Escribimos los errores en el archivo
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"ERRORES RELATIVOS: "<<endl;
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"Funcion 1: "<< func1 <<endl;
+              archivoSalidaParte2<<endl;
+              
+              //Realizamos los calculos de los errores de la funcion 1
+              errorTrapecio_F1 = calInte.errorRelativo(trapecio_F1,integral_F1);
+              //errorSimpson_F1 = calInte.errorRelativo(simpson_F1,integral_F1);
+              
+              // Escribimos en e archivo los errores de la funcion 1
+              archivoSalidaParte2<<"Error F1 con Trapecio: "<<errorTrapecio_F1<<endl;
+              //archivoSalidaParte2<<"Error F1 con Simpson: "<<errorSimpson_F1<<endl;
+              
+              // Realizamos un salto de lines
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"**********************************************"<<endl;
+              archivoSalidaParte2<<endl;
+              
+              // Realizamos la escritura de la funcion 2 
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"Funcion 2: "<< func2 <<endl;
+              archivoSalidaParte2<<endl;
+              
+              //Realizamos los calculos para la funcion 2
+              errorTrapecio_F2 = calInte.errorRelativo(trapecio_F2,integral_F2);
+              //errorSimpson_F2 = calInte.errorRelativo(simpson_F2,integral_F2);
+              
+              // Escribimos en el archivo los resultados de los errores de la funcion 2
+              archivoSalidaParte2<<"Error F2 con Trapecio: "<<errorTrapecio_F2<<endl;
+              //archivoSalidaParte2<<"Error F2 con Simpson: "<<errorSimpson_F2<<endl;
+              
+              // Realizamos el termino del archivo 
+              archivoSalidaParte2<<endl;
+              archivoSalidaParte2<<"**********************************************"<<endl;
+              archivoSalidaParte2<<endl;
+
+              // Cerramos el archivo
+              archivoSalidaParte2.close();
+
+              // Aumentamos bandera
+              bandera = 2;
+
               break;
 
-       case 3: cout <<" * Autor: Cristian Espinoza \n "<< endl;
+       case 3: cout<< " * Programa Reinciado * \n ";
+               bandera = 0;
+               break;
+
+       case 4: cout <<" * Autor: Cristian Espinoza \n "<< endl;
                cout <<" * Universidad santiago de chile \n"<< endl;
                break;
        default:
-               if(opcion != 4)
+               if(opcion != 5)
                cout <<"Esta opcion no esta permitida.\n"<< endl;
                break;
       }
 
-    }while(opcion!=4);
+    }while(opcion!=5);
 
 
   return 0;

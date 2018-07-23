@@ -10,7 +10,7 @@ class calcIntegral
 {
 	public:
 		calcIntegral();
-		double formTrapecio(vector<double> vectInterpolado, double intervaloMenor, double intervaloMayor);
-		double formSimpson(int tamano, vector<double> vectInterpolado, double intervaloMenor, double intervaloMayor);
-		double errorRelativo(double valorMedido, double valorReal);
+		long double formTrapecio(vector<long double> vectInterpolado, long double intervaloMenor, long double intervaloMayor);
+		long double formSimpson(int tamano, vector<long double> vectInterpolado, long double intervaloMenor, long double intervaloMayor);
+		long double errorRelativo(long double valorMedido, long double valorReal);
 };
