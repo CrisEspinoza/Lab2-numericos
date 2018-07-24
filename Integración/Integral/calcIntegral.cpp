@@ -24,27 +24,38 @@ long double calcIntegral::formTrapecio(vector<long double> vectInterpolado, long
 
 long double calcIntegral::formSimpson(int tamano, vector<long double> vectInterpolado, long double intervaloMenor, long double intervaloMayor)
 {
-	long double valoresImpares = 0.0;
-	long double valoresPares = 0.0;
-	int largo = vectInterpolado.size();
-	long double inicial = vectInterpolado[0];
-	long double final = vectInterpolado[tamano];
-	long double valorIntegral = 0.0;
+	long double valoresImpares = 0.0 , valoresPares = 0.0 , inicial = vectInterpolado[0] , final = vectInterpolado[tamano-1] , valorIntegral = 0.0 , resultadoCompleto = 0.0;
+	int largo = vectInterpolado.size() , i;
 
-	for (int i = 1; i <= (tamano/2) - 1; i++)
+	for (i = 1; i < (tamano / 2) ; i++)
 	{	
-		valoresPares += 2.0*vectInterpolado[i*2];
-
-	}
-	
-	for (int i = 1; i <= (tamano/2) ; i++)
-	{	
-			valoresImpares += 4.0*vectInterpolado[(i*2)-1];	
+		valoresPares = valoresPares + (2.0*vectInterpolado[i*2]);
+		valoresImpares = valoresImpares +  (4.0*vectInterpolado[(i*2)-1]);
 	}
 
-	valorIntegral = ((intervaloMayor-intervaloMenor)/(3.0*tamano))*(inicial + valoresImpares + valoresPares + final);
+	resultadoCompleto = valoresImpares + valoresPares;
+
+	if(largo % 2 != 0)
+	{
+		resultadoCompleto = resultadoCompleto + (4.0*vectInterpolado[tamano-2]);
+	}
+
+	valorIntegral = ((intervaloMayor-intervaloMenor)/(3.0*tamano))*(inicial + resultadoCompleto + final);
 
 	return valorIntegral;
+
+	/*int n = vectorInterpolado.size();
+	long double result = vectorInterpolado[0] + vectorInterpolado[n-1];
+	for (int i = 1; i < (n/2); i++)
+	{	
+		result += 2.0*vectorInterpolado[i*2];
+		result += 4.0*vectorInterpolado[(i*2)-1];
+	}
+	if(n%2 != 0){
+		result += 4.0*vectorInterpolado[n-2];
+	}
+	result *= ((b-a)/(3.0*n));
+	return result;*/
 }
 
 long double calcIntegral::errorRelativo(long double valorMedido, long double valorReal)

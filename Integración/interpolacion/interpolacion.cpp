@@ -22,7 +22,7 @@ long double Interpolacion::func2 (long double x)
 // Calcula el error
 long double Interpolacion::RMSE(vector<long double> vectorYInterpolado, vector<long double> vectorYReal)
 {
-	long double largo = vectorYReal.size();
+	long double largo = vectorYInterpolado.size();
 	long double resultadoParcial = 0;
 	long double resultadoFinal;
 	int i ;
@@ -110,7 +110,7 @@ vector<long double> Interpolacion::vectorY(vector<long double> vectorInterX, int
 long double** Interpolacion::crearMatrizMet1(vector<long double> vectorX, vector<long double> vectorY)
 {
 	int tamano = vectorX.size();
-	cout << "El numero del arreglo es de: " << tamano << endl;
+	//cout << "El numero del arreglo es de: " << tamano << endl;
 
 	int i,j,descuento=0;
 	long double **matriz,**matrizA;
@@ -188,7 +188,7 @@ long double** Interpolacion::crearMatrizMet1(vector<long double> vectorX, vector
 long double** Interpolacion::crearMatrizMet2(vector<long double> vectorX, vector<long double> vectorY)
 {
 	int tamano = vectorX.size();
-	cout << "El numero del arreglo es de: " << tamano << endl;
+	//cout << "El numero del arreglo es de: " << tamano << endl;
 
 	int i,j,descuento = 0;
 	long double h = 0.0;
@@ -284,7 +284,7 @@ long double** Interpolacion::crearMatrizMet2(vector<long double> vectorX, vector
 vector<long double> Interpolacion::diferenciasFinitas(vector<long double> vectorX, vector<long double> vectorY,vector<long double> vectorXInterpolado_0_05, int corte)
 {
 
-	cout<<"Llegue"<<endl;
+	//cout<<"Llegue"<<endl;
 	long double **matriz;
 	matriz = crearMatrizMet2(vectorX,vectorY);
 
@@ -334,7 +334,7 @@ vector<long double> Interpolacion::diferenciasFinitas(vector<long double> vector
 //Método de Interpolacion: Diferencias divididas
 vector<long double> Interpolacion::diferenciaDivididas(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05, int corte)
 {
-	cout<<"Llegue"<<endl;
+	//cout<<"Llegue"<<endl;
 	long double **matriz;
 	matriz = crearMatrizMet1(vectorX,vectorY);
 
@@ -502,13 +502,13 @@ vector<long double> Interpolacion::minimosCuadrados(vector<long double> vectorX,
    	   	//Revisando matriz
    	for (i = 0; i < tamanoMatriz; i++)
    	{
-   		cout<<matriz2(i,0)<<endl;
+   		//cout<<matriz2(i,0)<<endl;
    	}
 
    	//Mostrando vector Y
    	for (j = 0; j < tamanoMatriz; j++)
    	{
-   		cout << "Resultado_" <<i<<":"<<matriz2(j,0)<<endl;
+   		//cout << "Resultado_" <<i<<":"<<matriz2(j,0)<<endl;
    	}
 
     int tamano1 = vectorXInterpolado_0_05.size(); 
@@ -540,106 +540,107 @@ vector<long double> Interpolacion::minimosCuadrados(vector<long double> vectorX,
 }
 
 //Método de Interpolacion: Spline Cubico
-vector<long double> Interpolacion::splineCubico(vector<long double> t, vector<long double> y, vector<long double> x)
+vector<long double> Interpolacion::splineCubico(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05)
 {
-	if(t.size() != y.size()){
-        printf("los vectores tienen distinto largo ");
+	if(vectorX.size() != vectorY.size())
+	{
+		cout<< "Los vectores ingresados como parametros tiene distinto largo" ; 
     }
 
-    int tamano = t.size();
+    int tamano = vectorX.size();
     int i,j;
     
-    vector<long double> h;
+    vector<long double> distancia;
 	long double hi;
 	
 	//damos valor al vector h(distancia entre los x)
-    for(i = 0 ;i < tamano-1; i++)
+    for(i = 0 ; i < tamano - 1 ; i++)
     {
-        hi = t[i+1] - t[i];
-        h.push_back(hi);
+        hi = vectorX[i+1] - vectorX[i];
+        distancia.push_back(hi);
     }
     
 	//se inicializan las matrices
-	mat A(tamano-2, tamano-2);
-    mat B(tamano-2,1);
+	mat Matriz_A(tamano - 2, tamano - 2);
+    mat Matriz_B(tamano - 2, 1);
     
-    for(i = 0; i < tamano-2; i++)
+    for(i = 0; i < tamano - 2; i++)
     {
-		for(j = 0; j < tamano-2; j++)
+		for(j = 0; j < tamano - 2; j++)
 		{
-			A(i,j) = 0; 	
+			Matriz_A(i,j) = 0; 	
 		}
 	}
 	
 	//se llena la matriz A
 	j = 0;
-	A(0,0) = 2*(h[0] + h[1]);
-	A(0,1) = h[1];
+	Matriz_A(0,0) = 2 * (distancia[0] + distancia[1]);
+	Matriz_A(0,1) = distancia[1];
 		
-    for(i = 1; i < tamano-3;i++)
+    for(i = 1; i < tamano - 3 ; i++)
     {
-		A(i,j) = h[i];
-		A(i,j+1) = 2*(h[i] + h[i+1]);
-		A(i,j+2) = h[i+1];
+		Matriz_A(i,j) = distancia[i];
+		Matriz_A(i,j+1) = 2 * (distancia[i] + distancia[i+1]);
+		Matriz_A(i,j+2) = distancia[i+1];
 		j++; 
 	}
 	
-	A(tamano-3,tamano-3) = 2*(h[tamano-3] + h[tamano-2]);
-	A(tamano-3,tamano-4) = h[tamano-3];
+	Matriz_A(tamano - 3,tamano - 3) = 2 * (distancia[tamano - 3] + distancia[tamano - 2]);
+	Matriz_A(tamano - 3,tamano - 4) = distancia[tamano - 3];
 	
 	//se llena la matriz B
-	for(i = 0 ; i < tamano-2; i++)
+	for(i = 0 ; i < tamano - 2; i++)
 	{
-		B(i,0) = 6*( ( (y[i+2] - y[i+1]) / (t[i+2] - t[i+1]) ) - ( (y[i+1] - y[i])/ (t[i+1] - t[i]) ) );	
+		Matriz_B(i,0) = 6 * ( ( (vectorY[i+2] - vectorY[i+1]) / (vectorX[i+2] - vectorX[i+1]) ) - ( (vectorY[i+1] - vectorY[i]) / (vectorX[i+1] - vectorX[i]) ) );	
 	}
 	
 	//resolver sistema ecuaciones con la funcion de armadillo "solve":
-	vec X1 = solve(A, B);
+	vec Vec_X_1 = solve(Matriz_A, Matriz_B);
 
     vector<long double> solucion;
     
     //interpolando
     i = 0;
-    long double a,b,c,d,e,Rj;
+    long double inter_a,inter_b,inter_c,inter_d,inter_e,inter_Rj;
 	
-    while(i < x.size())
+    while(i < vectorX.size())
     {
-		for(j = 0; j < tamano-1; j++)
+		for(j = 0; j < tamano - 1; j++)
 		{
-			if(x[i]>= t[j] && x[i] < t[j+1])
+			if(vectorXInterpolado_0_05[i] >= vectorX[j] && vectorXInterpolado_0_05[i] < vectorX[j+1])
 			{
 				break;
 			}
 		}
 		if(j == 0)
 		{
-			a = 0 * (t[j+1] - x[i])*(t[j+1] - x[i])*(t[j+1] - x[i]) / 6*h[j];
-			b = (x[i] - t[j])*(x[i] - t[j])*(x[i] - t[j]) * X1[j] / 6*h[j];
-			c = ( ( (y[j+1] - y[j]) / h[j]) - ((X1[j] - 0) * h[j] /6)) * x[i];
-			d = ( (y[j]*t[j+1]) - (y[j+1]*t[j])) / h[j] ;
-			e = h[j]*(( (t[j]*X1[j]) - (t[j+1]* 0 )) / 6);
+			inter_a = 0 * (vectorX[j+1] - vectorXInterpolado_0_05[i]) * (vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorX[i]) / 6*distancia[j];
+			inter_b = (vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j]) * Vec_X_1[j] / 6*distancia[j];
+			inter_c = ( ( (vectorY[j+1] - vectorY[j]) / distancia[j]) - ((Vec_X_1[j] - 0) * distancia[j] /6)) * vectorXInterpolado_0_05[i];
+			inter_d = ( (vectorY[j]*vectorX[j+1]) - (vectorY[j+1]*vectorX[j])) / distancia[j] ;
+			inter_e = distancia[j]*(( (vectorX[j]*Vec_X_1[j]) - (vectorX[j+1]* 0 )) / 6);
 		}
 
 		if(j == tamano-2)
 		{
-			a = X1[j-1] * (t[j+1] - x[i])*(t[j+1] - x[i])*(t[j+1] - x[i]) / 6*h[j];
-			b = (x[i] - t[j])*(x[i] - t[j])*(x[i] - t[j]) * 0 / 6*h[j];
-			c = ( ( (y[j+1] - y[j]) / h[j]) - ((0 - X1[j-1]) * h[j] /6)) * x[i];
-			d = ( (y[j]*t[j+1]) - (y[j+1]*t[j])) / h[j] ;
-			e = h[j]*(( (t[j]*0) - (t[j+1]*X1[j-1])) / 6);
+			inter_a = Vec_X_1[j-1] * (vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorX[i]) / 6*distancia[j];
+			inter_b = (vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j]) * 0 / 6*distancia[j];
+			inter_c = ( ( (vectorY[j+1] - vectorY[j]) / distancia[j]) - ((0 - Vec_X_1[j-1]) * distancia[j] /6)) * vectorXInterpolado_0_05[i];
+			inter_d = ( (vectorY[j]*vectorX[j+1]) - (vectorY[j+1]*vectorX[j])) / distancia[j] ;
+			inter_e = distancia[j]*(( (vectorX[j]*0) - (vectorX[j+1]*Vec_X_1[j-1])) / 6);
 		}
 		
-		if(j != tamano-2 && j != 0)
+		if(j != (tamano - 2) && j != 0)
 		{
-			a = X1[j-1] * (t[j+1] - x[i])*(t[j+1] - x[i])*(t[j+1] - x[i]) / 6*h[j];
-			b = (x[i] - t[j])*(x[i] - t[j])*(x[i] - t[j]) * X1[j] / 6*h[j];
-			c = ( ( (y[j+1] - y[j]) / h[j]) - ((X1[j] - X1[j-1]) * h[j] /6)) * x[i];
-			d = ( (y[j]*t[j+1]) - (y[j+1]*t[j])) / h[j] ;
-			e = h[j]*(( (t[j]*X1[j]) - (t[j+1]*X1[j-1])) / 6);
+			inter_a = Vec_X_1[j-1] * (vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorXInterpolado_0_05[i]) / 6*distancia[j];
+			inter_b = (vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j]) * Vec_X_1[j] / 6*distancia[j];
+			inter_c = ( ( (vectorY[j+1] - vectorY[j]) / distancia[j]) - ((Vec_X_1[j] - Vec_X_1[j-1]) * distancia[j] /6)) * vectorXInterpolado_0_05[i];
+			inter_d = ( (vectorY[j]*vectorX[j+1]) - (vectorY[j+1]*vectorX[j])) / distancia[j] ;
+			inter_e = distancia[j]*(( (vectorX[j]*Vec_X_1[j]) - (vectorX[j+1]*Vec_X_1[j-1])) / 6);
 		}
 
-		Rj = a+b+c+d+e;
-		solucion.push_back(Rj);
+		inter_Rj = inter_a+inter_b+inter_c+inter_d+inter_e;
+		solucion.push_back(inter_Rj);
 		i++;
 	}
     

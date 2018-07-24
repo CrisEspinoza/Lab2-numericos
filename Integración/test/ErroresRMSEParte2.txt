@@ -12,12 +12,14 @@ Funcion 2: 2.1334e+07
 VALOR CALCULADO: Funcion 1: e^x+x-2
 
 Calculo Integral Trapecio: 6.95024e+86
+Calculo Integral Simpson: 6.20801e+86
 
 **********************************************
 
 VALOR CALCULADO: Funcion 2: x^3+4*x^2-5*x+2
 
 Calculo Integral Trapecio: 2.0929e+07
+Calculo Integral Simpson: 1.99786e+07
 
 **********************************************
 
@@ -27,6 +29,7 @@ ERRORES RELATIVOS:
 Funcion 1: e^x+x-2
 
 Error F1 con Trapecio: 0.0381617
+Error F1 con Simpson: 0.140878
 
 **********************************************
 
@@ -34,6 +37,7 @@ Error F1 con Trapecio: 0.0381617
 Funcion 2: x^3+4*x^2-5*x+2
 
 Error F2 con Trapecio: 0.018986
+Error F2 con Simpson: 0.0635315
 
 **********************************************
 

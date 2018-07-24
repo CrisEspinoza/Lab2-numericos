@@ -26,7 +26,7 @@ void escribirArchivo(char* archivo,vector<long double> vectorX, vector<long doub
 
   int tamano1 = vectorX.size();
 
-  cout<<"1:"<<tamano<<"- 2:"<< tamano1<<endl; 
+  //cout<<"1:"<<tamano<<"- 2:"<< tamano1<<endl; 
 
   for(i = 0; i < tamano; i++)
   {
@@ -336,19 +336,19 @@ int main()
               //Funcion 2
 
               difMinimosCuadrado2_0_5 = inter.minimosCuadrados(vectorX_0_5,vector2_Y_0_5,vectorXInterpolado_0_05,15);
-              errorMinimosCuadrado2_0_5 = inter.RMSE(difMinimosCuadrado2_0_5,vector1_Y_Interpolado_0_05);
+              errorMinimosCuadrado2_0_5 = inter.RMSE(difMinimosCuadrado2_0_5,vector2_Y_Interpolado_0_05);
               archivoSalidaParte1<<"Error con x = 0.5: "<<errorMinimosCuadrado2_0_5<<endl;
               
               difMinimosCuadrado2_1 = inter.minimosCuadrados(vectorX_1,vector2_Y_1,vectorXInterpolado_0_05,15);
-              errorMinimosCuadrado2_1 = inter.RMSE(difMinimosCuadrado2_1,vector1_Y_Interpolado_0_05);
+              errorMinimosCuadrado2_1 = inter.RMSE(difMinimosCuadrado2_1,vector2_Y_Interpolado_0_05);
               archivoSalidaParte1<<"Error con x = 1: "<<errorMinimosCuadrado2_1<<endl;
               
               difMinimosCuadrado2_5 = inter.minimosCuadrados(vectorX_5,vector2_Y_5,vectorXInterpolado_0_05,15);
-              errorMinimosCuadrado2_5 = inter.RMSE(difMinimosCuadrado2_5,vector1_Y_Interpolado_0_05);
+              errorMinimosCuadrado2_5 = inter.RMSE(difMinimosCuadrado2_5,vector2_Y_Interpolado_0_05);
               archivoSalidaParte1<<"Error con x = 5: "<<errorMinimosCuadrado2_5<<endl;
               
               difMinimosCuadrado2_10 = inter.minimosCuadrados(vectorX_10,vector2_Y_10,vectorXInterpolado_0_05,15);
-              errorMinimosCuadrado2_10 = inter.RMSE(difMinimosCuadrado2_10,vector1_Y_Interpolado_0_05);
+              errorMinimosCuadrado2_10 = inter.RMSE(difMinimosCuadrado2_10,vector2_Y_Interpolado_0_05);
               archivoSalidaParte1<<"Error con x = 10: "<<errorMinimosCuadrado2_10<<endl;
               
               escribirArchivo((char*)"../../GraficarMatlab/MinCuadrados/Func2_0_5.txt",vectorXInterpolado_0_05,difMinimosCuadrado2_0_5);
@@ -544,11 +544,11 @@ int main()
               
               //Realizamos los calculos de las integrales
               trapecio_F1 = calInte.formTrapecio(difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
-              //simpson_F1 = calInte.formSimpson((difMinimosCuadrado1_0_5.size() - 1),difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
+              simpson_F1 = calInte.formSimpson((difMinimosCuadrado1_0_5.size() - 1),difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
               
               //Escribimos en el archivo
               archivoSalidaParte2<<"Calculo Integral Trapecio: "<<trapecio_F1<<endl;
-              //archivoSalidaParte2<<"Calculo Integral Simpson: "<<simpson_F1<<endl;
+              archivoSalidaParte2<<"Calculo Integral Simpson: "<<simpson_F1<<endl;
               
               //Realizamos la separacion
               archivoSalidaParte2<<endl;
@@ -562,11 +562,11 @@ int main()
               
               //Realizamos los caluclos de la funcion 2
               trapecio_F2 = calInte.formTrapecio(difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
-              //simpson_F2 = calInte.formulaSimpson( ( difMinimosCuadrado2_0_5.size() - 1 ),difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
+              simpson_F2 = calInte.formSimpson( ( difMinimosCuadrado2_0_5.size() - 1 ),difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
               
               //Escribimos en el archivo los resultado de la funcion 2
               archivoSalidaParte2<<"Calculo Integral Trapecio: "<<trapecio_F2<<endl;
-              //archivoSalidaParte2<<"Calculo Integral Simpson: "<<simpson_F2<<endl;
+              archivoSalidaParte2<<"Calculo Integral Simpson: "<<simpson_F2<<endl;
               
               //Realizamos los saltos en el archivo
               archivoSalidaParte2<<endl;
@@ -582,11 +582,11 @@ int main()
               
               //Realizamos los calculos de los errores de la funcion 1
               errorTrapecio_F1 = calInte.errorRelativo(trapecio_F1,integral_F1);
-              //errorSimpson_F1 = calInte.errorRelativo(simpson_F1,integral_F1);
+              errorSimpson_F1 = calInte.errorRelativo(simpson_F1,integral_F1);
               
               // Escribimos en e archivo los errores de la funcion 1
               archivoSalidaParte2<<"Error F1 con Trapecio: "<<errorTrapecio_F1<<endl;
-              //archivoSalidaParte2<<"Error F1 con Simpson: "<<errorSimpson_F1<<endl;
+              archivoSalidaParte2<<"Error F1 con Simpson: "<<errorSimpson_F1<<endl;
               
               // Realizamos un salto de lines
               archivoSalidaParte2<<endl;
@@ -600,11 +600,11 @@ int main()
               
               //Realizamos los calculos para la funcion 2
               errorTrapecio_F2 = calInte.errorRelativo(trapecio_F2,integral_F2);
-              //errorSimpson_F2 = calInte.errorRelativo(simpson_F2,integral_F2);
+              errorSimpson_F2 = calInte.errorRelativo(simpson_F2,integral_F2);
               
               // Escribimos en el archivo los resultados de los errores de la funcion 2
               archivoSalidaParte2<<"Error F2 con Trapecio: "<<errorTrapecio_F2<<endl;
-              //archivoSalidaParte2<<"Error F2 con Simpson: "<<errorSimpson_F2<<endl;
+              archivoSalidaParte2<<"Error F2 con Simpson: "<<errorSimpson_F2<<endl;
               
               // Realizamos el termino del archivo 
               archivoSalidaParte2<<endl;
