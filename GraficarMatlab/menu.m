@@ -73,56 +73,64 @@ while (opcion ~= 9)
     switch opcion
         
         case 1
+            %Para cerrar los graficos que queden abiertos
+            close all
             graficar_F1_div(matrizReal_f1_x0_05,matriz_f1_x_0_5_divididas,matriz_f1_x_1_divididas,matriz_f1_x_5_divididas,matriz_f1_x_10_divididas);
             h = figure(1);
             saveas(h, 'Func1_DD.png');
-            close all
             %break;
         case 2
+            %Para cerrar los graficos que queden abiertos
+            close all
             graficar_F1_fin(matrizReal_f1_x0_05,matriz_f1_x_0_5_finitas,matriz_f1_x_1_finitas,matriz_f1_x_5_finitas,matriz_f1_x_10_finitas);
             h1 = figure(1);
             saveas(h1, 'Func1_DF.png');
-            close all
             %break;
         case 3
+            %Para cerrar los graficos que queden abiertos
+            close all
             graficar_F1_min(matrizReal_f1_x0_05,matriz_f1_x_0_5_minimos,matriz_f1_x_1_minimos,matriz_f1_x_5_minimos,matriz_f1_x_10_minimos);
             h3 = figure(1);
             saveas(h3, 'Func1_MC.png');
-            close all
             %break;
         case 4
+            %Para cerrar los graficos que queden abiertos
+            close all
             graficar_F1_spli(matrizReal_f1_x0_05,matriz_f1_x_0_5_spline,matriz_f1_x_1_spline,matriz_f1_x_5_spline,matriz_f1_x_10_spline);
             h = figure(1);
             saveas(h, 'Func1_SC.png');
-            close all
             %break;
         case 5
+            %Para cerrar los graficos que queden abiertos
+            close all
             graficar_F2_div(matrizReal_f2_x0_05,matriz_f2_x_0_5_divididas,matriz_f2_x_1_divididas,matriz_f2_x_5_divididas,matriz_f2_x_10_divididas);
             h = figure(1);
             saveas(h, 'Func2_DD.png');
-            slept()
-            close all
             %break;
         case 6
+            %Para cerrar los graficos que queden abiertos
+            close all
             graficar_F2_fin(matrizReal_f2_x0_05,matriz_f2_x_0_5_finitas,matriz_f2_x_1_finitas,matriz_f2_x_5_finitas,matriz_f2_x_10_finitas);
             h = figure(1);
             saveas(h, 'Func2_DF.png');
-            close all
             %break;
         case 7
+            %Para cerrar los graficos que queden abiertos
+            close all
             graficar_F2_min(matrizReal_f2_x0_05,matriz_f2_x_0_5_minimos,matriz_f2_x_1_minimos,matriz_f2_x_5_minimos,matriz_f2_x_10_minimos);
             h = figure(1);
             saveas(h, 'Func2_MC.png');
-            close all
             %break;
         case 8
+            %Para cerrar los graficos que queden abiertos
+            close all 
             graficar_F2_spli(matrizReal_f2_x0_05,matriz_f2_x_0_5_spline,matriz_f2_x_1_spline,matriz_f2_x_5_spline,matriz_f2_x_10_spline);
             h = figure(1);
             saveas(h, 'Func2_SC.png');
-            close all
             %break;
     end
     opcion = input (' \n *             Menu: Ingrese opcion * \n -------------------- \n    Graficar funcion I \n 1. Metodo Diferencias dividias \n 2. Metodo Diferencias finitas \n 3. Metodo Minimos cuadrados \n 4. Metodo Spline cubico \n  Graficar funcion II \n 5. Metodo Diferencias dividias \n 6. Metodo Diferencias finitas \n 7. Metodo Minimos cuadrados \n 8. Metodo Spline cubico \n        *-*-*-*-*-*-*-* \n 9. Terminar programa \n  -------> Ingrese opción:  ');
 end
-
+%Para cerrar los graficos que queden abiertos
+close all
 disp('El programa ha terminado ! ')

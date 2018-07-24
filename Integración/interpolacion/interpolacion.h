@@ -33,7 +33,7 @@ class Interpolacion
 		vector<long double> vectorY(vector<long double> vectorInterX, int i);
 		vector<long double> diferenciasFinitas(vector<long double> vectorX, vector<long double> vectorY,vector<long double> vectorXInterpolado_0_05, int corte);
 		vector<long double> diferenciaDivididas(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05, int corte);
-		vector<long double> splineCubico(vector<long double> t, vector<long double> y, vector<long double> x);
+		vector<long double> splineCubico(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05);
 		vector<long double> minimosCuadrados(vector<long double> vectorX, vector<long double> vectorY, vector<long double> vectorXInterpolado_0_05, int grado);
 };
 

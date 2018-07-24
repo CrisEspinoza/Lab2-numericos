@@ -554,7 +554,7 @@ vector<long double> Interpolacion::splineCubico(vector<long double> vectorX, vec
 	long double hi;
 	
 	//damos valor al vector h(distancia entre los x)
-    for(i = 0 ; i < tamano - 1 ; i++)
+    for(i = 0 ; i < tamano - 1; i++)
     {
         hi = vectorX[i+1] - vectorX[i];
         distancia.push_back(hi);
@@ -603,7 +603,7 @@ vector<long double> Interpolacion::splineCubico(vector<long double> vectorX, vec
     i = 0;
     long double inter_a,inter_b,inter_c,inter_d,inter_e,inter_Rj;
 	
-    while(i < vectorX.size())
+    while(i < vectorXInterpolado_0_05.size())
     {
 		for(j = 0; j < tamano - 1; j++)
 		{
@@ -614,7 +614,7 @@ vector<long double> Interpolacion::splineCubico(vector<long double> vectorX, vec
 		}
 		if(j == 0)
 		{
-			inter_a = 0 * (vectorX[j+1] - vectorXInterpolado_0_05[i]) * (vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorX[i]) / 6*distancia[j];
+			inter_a = 0 * (vectorX[j+1] - vectorXInterpolado_0_05[i]) * (vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorXInterpolado_0_05[i]) / 6*distancia[j];
 			inter_b = (vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j]) * Vec_X_1[j] / 6*distancia[j];
 			inter_c = ( ( (vectorY[j+1] - vectorY[j]) / distancia[j]) - ((Vec_X_1[j] - 0) * distancia[j] /6)) * vectorXInterpolado_0_05[i];
 			inter_d = ( (vectorY[j]*vectorX[j+1]) - (vectorY[j+1]*vectorX[j])) / distancia[j] ;
@@ -623,7 +623,7 @@ vector<long double> Interpolacion::splineCubico(vector<long double> vectorX, vec
 
 		if(j == tamano-2)
 		{
-			inter_a = Vec_X_1[j-1] * (vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorX[i]) / 6*distancia[j];
+			inter_a = Vec_X_1[j-1] * (vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorXInterpolado_0_05[i])*(vectorX[j+1] - vectorXInterpolado_0_05[i]) / 6*distancia[j];
 			inter_b = (vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j])*(vectorXInterpolado_0_05[i] - vectorX[j]) * 0 / 6*distancia[j];
 			inter_c = ( ( (vectorY[j+1] - vectorY[j]) / distancia[j]) - ((0 - Vec_X_1[j-1]) * distancia[j] /6)) * vectorXInterpolado_0_05[i];
 			inter_d = ( (vectorY[j]*vectorX[j+1]) - (vectorY[j+1]*vectorX[j])) / distancia[j] ;
