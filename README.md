@@ -1,9 +1,11 @@
 # Laboratorio numero 2: Cristian Espinoza Silva
 
+tipo de dato falta ... 
+
 							* * Dificultades para enfrentar los problemas del laboratorio* *
 
 * Parte 1 : 
-	Una de las complicaciones se que tuvieron para poder desarrollar el laboratorio en la primero parte es que algunos valores se seteaban finalmente en -nan, inf o -inf. La solución que se llego luego de recibir el feedback en las oportunidades que se fue hablar presencialmente, fue que no era necesario calcular en su totalidad el polinomio mediante que llega un punto que luego de eso no van cambiando los valores del error ya que son muy minimos y no influye en el calculo final.
+	Una de las complicaciones se que tuvieron para poder desarrollar el laboratorio en la primero parte es que algunos valores se seteaban finalmente en -nan, inf o -inf. La solución que se llego luego de recibir el feedback en las oportunidades que se fue hablar presencialmente, fue que no era necesario calcular en su totalidad el polinomio mediante que llega un punto que luego de eso no van cambiando los valores del error ya que son muy minimos y no influye en el calculo final. Además, de tener que cambiar el tipo de dato de "double" a "long double" el cual nos almacenar valores numericos con mayor cantidad de decimales y así recrear una aproximación mas exacta.
 	
 	Además que al momento de realizar todos los calculos respectivos se obtenia que la arquitectura de la maquina no soportaba exponenetes tan elevados, esto se vio reflejado en la funcion numero 1 la cual constaba con una exponencial que aumentaba su exponente de manera muy rapida y producia que nuevos valores calculados superaran la arquitectura de la maquina que se esta utilizando. 
 	

@@ -544,7 +544,7 @@ int main()
               
               //Realizamos los calculos de las integrales
               trapecio_F1 = calInte.formTrapecio(difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
-              simpson_F1 = calInte.formSimpson((difMinimosCuadrado1_0_5.size() - 1),difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
+              simpson_F1 = calInte.formSimpson(difMinimosCuadrado1_0_5,intervaloMenor,intervaloMayor);
               
               //Escribimos en el archivo
               archivoSalidaParte2<<"Calculo Integral Trapecio: "<<trapecio_F1<<endl;
@@ -562,7 +562,7 @@ int main()
               
               //Realizamos los caluclos de la funcion 2
               trapecio_F2 = calInte.formTrapecio(difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
-              simpson_F2 = calInte.formSimpson( ( difMinimosCuadrado2_0_5.size() - 1 ),difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
+              simpson_F2 = calInte.formSimpson(difMinimosCuadrado2_0_5,intervaloMenor,intervaloMayor);
               
               //Escribimos en el archivo los resultado de la funcion 2
               archivoSalidaParte2<<"Calculo Integral Trapecio: "<<trapecio_F2<<endl;

@@ -64,10 +64,10 @@ vector<long double> Interpolacion::vectorX(long double distancia,int interMenor,
 		vectorResultante.push_back(i);
 	}
 
-	/*if (distancia == 0.05)
+	if (vectorResultante[vectorResultante.size() - 1 ] != 200.0)
 	{
-		vectorResultante.push_back(200);
-	}*/
+		vectorResultante.push_back(200.0);
+	}
 	
 	return vectorResultante;
 }
