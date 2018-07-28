@@ -1,7 +1,5 @@
 # Laboratorio numero 2: Cristian Espinoza Silva
 
-tipo de dato falta ... 
-
 							* * Dificultades para enfrentar los problemas del laboratorio* *
 
 * Parte 1 : 
@@ -10,16 +8,18 @@ tipo de dato falta ...
 	Además que al momento de realizar todos los calculos respectivos se obtenia que la arquitectura de la maquina no soportaba exponenetes tan elevados, esto se vio reflejado en la funcion numero 1 la cual constaba con una exponencial que aumentaba su exponente de manera muy rapida y producia que nuevos valores calculados superaran la arquitectura de la maquina que se esta utilizando. 
 	
 	Por lo cual se produjo a cortar en un numero tentativo, el cual fue obtenido probando el programa hasta donde soportaba la arquitectura de la maquina.
-	
+
+	Tambien tocar un punto el cual en el metodo de los minimos cuadrados especificamente a pesar que se llego a un error muy aceptable tanto en la función 1 como en la función 2, tambien se pudiera haber mejorado su aproximación en la funcion 1 cambiando la función base, ya que se ocupo la generica (x^0,x^1,x^2,....,....,x^9,.,...,.,x^(n-1),x^n) para generar la tabla de valores y luego del feedaback recibido en la ultima clase de labotario, pudimos entender que la aproximación del error hubiese sido de mucho mejor forma si ocupariamos como función base una Exponencial (e) para la funcion 1, ya que contiene uno, entonces hubieramos llegado a una aprocimación mucho mas cercana de la que ya logramos llegar. En cambio, para la función 2 se ocupo una funcion base muy aceptable, ya que la función cuenta con un polinomio de x, entonces la función escogido es la mas aceptable para ese caso.
+
 	Finalmente se pudo llegar a una solución viable y sensata, donde optuvimos resultados cercanos a los reales de la función. Destacar que principalmente estos problemas mencionados anteriormente se vierón reflejados en los metodos de diferencias divididas, diferencias finitas y en menor medida en el metodo de minimos cuadrados al momento de aplicarlos a la funcion numero 1 la cual contenia una exponencial. 
 
 * Parte 2: 
 	Esta parte del lab se pudo realizar de forma completa y sin tener mayores inconvenientes, ya que se pudo trabajar con la totalidad de los datos, así generando el error correspondiente para funciones ocupando los dos metodos correspondientes.
-
+	El error obtenido en la parte numerico 2 del laboratorio es aceptable, pero no del mejor, pero dejar en claro que esto no pasa por que el metodo este mal implementado, si no, especificamente porque cada vez que se realiza un calculo se acumula un error, el cual al realizar tantos calculos por la canidad de puntos que se tiene, este error afecta en el resultado final que se obtiene, dejar en claro que a pesar de esto se obtiene un error considerablemente bueno del orden de la e^-6. Pudiendo concluir que se llega a un resultado totalemente aceptable.
 
 										* * Modo de uso * * 
 
-1. En primera instancia tenemos un programa realizado en c++, el cual consta con un menu que ayuda a la UX del usuario, para poder hacer mas amigable el trato con el usuario.
+1. En primera instancia tenemos un programa realizado en c++, el cual consta con un menu que ayuda a la UX del usuario, para poder hacer mas amigable el trato con el usuario. Se creo una makefile para poder simplificar la compilación de dicho codigo, es decir, que basta con colocar make en la consola dentro de la carpeta que se encuentra (La cual es "/home/huaso/Escritorio/Numericos/Lab2-numericos/Integración/test") para que se compile el programa y luego poder ejecutarlo con la siguiente instrucción "./main".
 
 	* 1° opción: Es la encargada de realizar la primera parte del laboratorio, la cual genera los archivos con los datos de cada uno de los metodos. Estos datos son calculados con las exigencia que se pedian en el laboratorio, ya sea con separación de 0.5 - 1 - 5 - 10, y finalmente para graficar tambien se hace el calculo con 0.05. Cada uno de estos resutlados son almacenados en una carpeta llamada "Graficar Matlab", la cual contiene sub-carpetas que llevan el nombre de cada uno de los metodos donde se guardan los resultados obtenidos de la funcion 1 y la funcion 2 para ese respectivo metodo. 
 		     Ademas genera un archivo con los errores obtenidos el cual se almacena en la carpeta "test" del programa, el archivo anteriormente mencionado lleva como nombre "ErroresRMSEParte1.txt".

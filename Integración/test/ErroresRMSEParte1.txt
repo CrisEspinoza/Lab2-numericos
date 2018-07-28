@@ -68,17 +68,17 @@ Spline Cubico:
 
 Funcion 1 :e^x+x-2
 
-Error con x = 0.5: 3.82851e+85
-Error con x = 1: 5.24051e+84
-Error con x = 5: 2.85265e+86
-Error con x = 10: -nan
+Error con x = 0.5: 4.49776e+83
+Error con x = 1: 1.15867e+84
+Error con x = 5: 2.85151e+86
+Error con x = 10: 1.67536e+87
 
 **********************************************
 
 Funcion 2 :x^3+4*x^2-5*x+2
 
-Error con x = 0.5: -nan
-Error con x = 1: -nan
-Error con x = 5: 98955.7
-Error con x = 10: -nan
+Error con x = 0.5: 12.0576
+Error con x = 1: 3.01194
+Error con x = 5: 37896.8
+Error con x = 10: 623935
 

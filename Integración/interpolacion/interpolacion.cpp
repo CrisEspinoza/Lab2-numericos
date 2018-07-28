@@ -605,7 +605,7 @@ vector<long double> Interpolacion::splineCubico(vector<long double> vectorX, vec
 	
     while(i < vectorXInterpolado_0_05.size())
     {
-		for(j = 0; j < tamano - 1; j++)
+		for(j = 0; j < tamano - 2; j++)
 		{
 			if(vectorXInterpolado_0_05[i] >= vectorX[j] && vectorXInterpolado_0_05[i] < vectorX[j+1])
 			{

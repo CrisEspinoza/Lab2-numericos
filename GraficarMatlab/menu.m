@@ -103,7 +103,7 @@ while (opcion ~= 9)
         case 5
             %Para cerrar los graficos que queden abiertos
             close all
-            graficar_F2_div(matrizReal_f2_x0_05,matriz_f2_x_0_5_divididas,matriz_f2_x_1_divididas,matriz_f2_x_5_divididas,matriz_f2_x_10_divididas);
+            graficar_F2_div(matriz_f2_x_0_5_divididas,matriz_f2_x_1_divididas,matriz_f2_x_5_divididas,matriz_f2_x_10_divididas);
             h = figure(1);
             saveas(h, 'Func2_DD.png');
             %break;
